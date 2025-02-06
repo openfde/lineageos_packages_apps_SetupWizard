@@ -167,6 +167,19 @@
         </activity>
 
         <activity
+            android:name=".location.CitySettingsActivity"
+            android:label="@string/activity_label_empty"
+            android:configChanges="mcc|mnc"
+            android:immersive="true"
+            android:exported="false"
+            android:windowSoftInputMode="stateAlwaysHidden">
+            <intent-filter>
+                <action android:name="org.lineageos.setupwizard.CITY_SETTINGS_SETUP" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity
             android:name=".LocationSettingsActivity"
             android:label="@string/activity_label_empty"
             android:configChanges="mcc|mnc"

@@ -20,7 +20,7 @@ public class SetupWizardApp extends Application {
 
     public static final String TAG = SetupWizardApp.class.getSimpleName();
     // Verbose logging
-    public static final boolean LOGV = Log.isLoggable(TAG, Log.VERBOSE);
+    public static final boolean LOGV = true;//Log.isLoggable(TAG, Log.VERBOSE);
 
     public static final String ACTION_RESTORE_FROM_BACKUP =
             "com.stevesoltys.seedvault.RESTORE_BACKUP";

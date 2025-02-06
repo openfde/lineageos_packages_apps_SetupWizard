@@ -26,8 +26,9 @@ android_app {
         "setupdesign",
         "SystemUISharedLib",
         "org.lineageos.platform.internal",
+         "androidx.room_room-runtime",
     ],
-
+    plugins: ["androidx.room_room-compiler-plugin"],
     libs: ["telephony-common"],
 
     required: ["privapp_whitelist_org.lineageos.setupwizard"],
