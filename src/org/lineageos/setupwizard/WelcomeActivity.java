@@ -31,7 +31,16 @@ public class WelcomeActivity extends SubBaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        SetupWizardUtils.finishSetupWizard(WelcomeActivity.this);
+        // SetupWizardUtils.finishSetupWizard(WelcomeActivity.this);
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                SetupWizardUtils.parseGpsData(WelcomeActivity.this);
+            }
+        }).start();
+   
+   
         onSetupStart();
         SystemBarHelper.setBackButtonVisible(getWindow(), false);
         setNextText(R.string.start);

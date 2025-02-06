@@ -52,11 +52,28 @@ import android.util.Log;
 
 import org.lineageos.setupwizard.BaseSetupWizardActivity;
 import org.lineageos.setupwizard.SetupWizardApp;
+import org.lineageos.setupwizard.location.RegionInfo;
 
 import java.io.File;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Scanner;
 
 import lineageos.providers.LineageSettings;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
+import java.util.Scanner;
+import org.lineageos.setupwizard.R;
+import org.lineageos.setupwizard.BaseDataBase;
 
 public class SetupWizardUtils {
 
@@ -363,5 +380,113 @@ public class SetupWizardUtils {
                     == LTE_ON_CDMA_TRUE;
         }
         return lteOnCdmaMode == LTE_ON_CDMA_TRUE;
+    }
+
+
+       public static void parseGpsData(Context context) {
+        try {
+            Log.i(TAG,"parseGpsData......start");
+            InputStream inputStream = context.getResources().openRawResource(R.raw.gps);
+            Scanner scanner = new Scanner(inputStream).useDelimiter("\\A");
+            String jsonString = scanner.hasNext() ? scanner.next() : "";
+
+            JSONArray chinaData = new JSONArray(jsonString);
+            BaseDataBase.getInstance(context).regionDao().deleteAll();
+            int index = 0;
+            for (int i = 0; i < chinaData.length(); i++) {
+                JSONObject china = chinaData.getJSONObject(i);
+                String countryId = "C_00" + i;
+                String countryName = china.getJSONArray("name").getString(0);
+                String countryEnName = china.getJSONArray("name").getString(1);
+                JSONArray provinces = china.getJSONArray("provinces");
+                for (int j = 0; j < provinces.length(); j++) {
+                    JSONObject province = provinces.getJSONObject(j);
+                    String provinceId = "P_00" + i + "00" + j;
+                    String provinceName = province.getJSONArray("name").getString(0); // Get the province name
+                    String provinceEnName = province.getJSONArray("name").getString(1);
+                    JSONArray cities = province.getJSONArray("cities");
+                    for (int k = 0; k < cities.length(); k++) {
+                        JSONObject city = cities.getJSONObject(k);
+                        String cityName = city.getJSONArray("name").getString(0); // Get the city name
+                        String cityEnName = city.getJSONArray("name").getString(1);
+                        String gpsCoordinates = city.getString("gps"); // Get the GPS coordinates
+                        String cityId = "CI_00" + i + "00" + j + "00" + k;
+
+
+                        RegionInfo regionInfo = new RegionInfo();
+                        regionInfo.setCountryId(countryId);
+                        regionInfo.setCountryName(countryName);
+                        regionInfo.setCountryNameEn(countryEnName);
+
+                        regionInfo.setProvinceId(provinceId);
+                        regionInfo.setProvinceName(provinceName);
+                        regionInfo.setProvinceNameEn(provinceEnName);
+
+                        regionInfo.setCityId(cityId);
+                        regionInfo.setCityName(cityName);
+                        regionInfo.setCityNameEn(cityEnName);
+
+                        regionInfo.setGps(gpsCoordinates);
+
+                        regionInfo.setIsDel("0");
+                        regionInfo.setCreateDate(getCurDateTime());
+                        regionInfo.setEditDate(getCurDateTime());
+
+                        BaseDataBase.getInstance(context).regionDao().insert(regionInfo);
+                    }
+                }
+            }
+            Log.i(TAG,"parseGpsData......end");
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+
+        }
+    }
+
+    public static String getCurDateTime() {
+        LocalDateTime currentTime = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String formattedTime = currentTime.format(formatter);
+        return formattedTime;
+    }
+
+
+    public static boolean isChineseLanguage(Context context) {
+        Locale locale = context.getResources().getConfiguration().locale;
+        String language = locale.getLanguage();
+        return language.equals("zh");
+    }
+
+    public static int ToInt(Object ojb) {
+        if (ojb == null) {
+            return 0;
+        } else {
+            try {
+                return ToDouble(ojb).intValue();
+            } catch (Exception e) {
+                return 0;
+            }
+        }
+    }
+
+    public static Double ToDouble(Object ojb) {
+        if (ojb == null) {
+            return 0.0;
+        } else {
+            try {
+                return Double.valueOf(ToString(ojb));
+            } catch (Exception e) {
+                return 0.0;
+            }
+        }
+    }
+
+    public static String ToString(Object ojb) {
+        if (ojb == null) {
+            return "";
+        } else {
+            return String.valueOf(ojb).trim();
+        }
     }
 }

@@ -69,7 +69,7 @@ public class LocaleActivity extends BaseSetupWizardActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        SystemBarHelper.setBackButtonVisible(getWindow(), true);
+        // SystemBarHelper.setBackButtonVisible(getWindow(), true);
         setNextText(R.string.next);
         mLanguagePicker = findViewById(R.id.locale_list);
         mLanguagePicker.setNextRight(getNextButton().getId());

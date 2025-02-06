@@ -17,13 +17,19 @@
         wizard:uri="intent:#Intent;action=org.lineageos.setupwizard.LINEAGE_WELCOME;end"
         id="welcome">
         <result wizard:name="skip" wizard:resultCode="1" />
+        <result wizard:action="city_settings" />
+    </WizardAction>
+
+    <WizardAction
+        wizard:uri="intent:#Intent;action=org.lineageos.setupwizard.CITY_SETTINGS_SETUP;end"
+        id="city_settings">
         <result wizard:action="locale" />
     </WizardAction>
 
     <WizardAction
         wizard:uri="intent:#Intent;action=org.lineageos.setupwizard.LINEAGE_LOCALE;end"
         id="locale">
-        <result wizard:action="sim_missing" />
+        <result wizard:action="datetime" />
     </WizardAction>
 
     <WizardAction
@@ -41,7 +47,7 @@
     <WizardAction
         wizard:uri="intent:#Intent;action=org.lineageos.setupwizard.LINEAGE_DATETIME;end"
         id="datetime">
-        <result wizard:action="restore" />
+        <result wizard:action="finish" />
     </WizardAction>
 
     <WizardAction
