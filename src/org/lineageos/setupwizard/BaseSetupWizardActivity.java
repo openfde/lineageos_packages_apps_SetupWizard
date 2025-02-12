@@ -3,7 +3,6 @@
  * SPDX-FileCopyrightText: 2017-2024 The LineageOS Project
  * SPDX-License-Identifier: Apache-2.0
  */
-
 package org.lineageos.setupwizard;
 
 import static android.view.View.INVISIBLE;
@@ -162,8 +161,8 @@ public abstract class BaseSetupWizardActivity extends AppCompatActivity implemen
     }
 
     /**
-     * @return The navigation bar instance in the layout, or null if the layout does not have a
-     * navigation bar.
+     * @return The navigation bar instance in the layout, or null if the layout
+     * does not have a navigation bar.
      */
     public NavigationLayout getNavigationBar() {
         final View view = findViewById(R.id.navigation_bar);
@@ -249,8 +248,8 @@ public abstract class BaseSetupWizardActivity extends AppCompatActivity implemen
 
     protected final void nextAction(int resultCode, Intent data) {
         if (LOGV) {
-            Log.v(TAG, "nextAction resultCode=" + resultCode +
-                    " data=" + data + " this=" + this);
+            Log.v(TAG, "nextAction resultCode=" + resultCode
+                    + " data=" + data + " this=" + this);
         }
         if (resultCode == RESULT_CANCELED) {
             throw new IllegalArgumentException("Cannot call nextAction with RESULT_CANCELED");
@@ -260,7 +259,9 @@ public abstract class BaseSetupWizardActivity extends AppCompatActivity implemen
         mNextIntentResultLauncher.launch(intent);
     }
 
-    /** Adorn the Intent with Setup Wizard-related extras. */
+    /**
+     * Adorn the Intent with Setup Wizard-related extras.
+     */
     protected Intent decorateIntent(Intent intent) {
         return intent
                 .putExtra(WizardManagerHelper.EXTRA_IS_FIRST_RUN, isFirstRun())
@@ -297,8 +298,8 @@ public abstract class BaseSetupWizardActivity extends AppCompatActivity implemen
     }
 
     protected final void logActivityState(String prefix) {
-        Log.v(TAG, prefix + " isResumed=" + isResumed() + " isFinishing=" +
-                isFinishing() + " isDestroyed=" + isDestroyed());
+        Log.v(TAG, prefix + " isResumed=" + isResumed() + " isFinishing="
+                + isFinishing() + " isDestroyed=" + isDestroyed());
     }
 
     private void initLayout() {

@@ -47,6 +47,12 @@
     <WizardAction
         wizard:uri="intent:#Intent;action=org.lineageos.setupwizard.LINEAGE_DATETIME;end"
         id="datetime">
+        <result wizard:action="download_app" />
+    </WizardAction>
+
+    <WizardAction
+        wizard:uri="intent:#Intent;action=org.lineageos.setupwizard.DOWNLOAD_APP_SETUP;end"
+        id="download_app">
         <result wizard:action="finish" />
     </WizardAction>
 

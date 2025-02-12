@@ -14,3 +14,12 @@
 # Needed when building against the Marshmallow SDK
 -dontwarn org.apache.http.**
 -dontwarn androidx.**
+
+-keepattributes *Annotation*
+-keepclassmembers class ** {
+    @org.greenrobot.eventbus.Subscribe <methods>;
+}
+
+-keepclassmembers class * extends org.greenrobot.eventbus.util.ThrowableFailureEvent {
+    <init>(java.lang.Throwable);
+}

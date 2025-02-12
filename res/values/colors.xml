@@ -12,6 +12,18 @@
 
     <color name="divider">#40000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="black">#FF000000</color>
     <color name="all_bg">#f5f5f5</color>
+
+    <color name="done_button_color">#67C23A</color>
+    <color name="done_button_disable_color">#B367C23A</color>
+    <color name="done_button_pressed_color">#5DAF34</color>
+    <color name="done_button_hovered_color">#85CE61</color>
+
+    <color name="panel_title_color">#ff333333</color>
+    <color name="panel_background_color">#FFEDEDED</color>
+    <color name="list_color">#333333</color>
+    <color name="list_summary_color">#333333</color>
+    <color name="download_button_color">#59409EFF</color>
 
 </resources>

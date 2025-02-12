@@ -3,7 +3,6 @@
  * SPDX-FileCopyrightText: 2017-2024 The LineageOS Project
  * SPDX-License-Identifier: Apache-2.0
  */
-
 package org.lineageos.setupwizard.util;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -49,14 +48,24 @@ import android.telephony.SubscriptionInfo;
 import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
 import android.util.Log;
+import android.graphics.BitmapFactory;
+import android.graphics.Bitmap;
+import android.content.pm.ApplicationInfo;
 
 import org.lineageos.setupwizard.BaseSetupWizardActivity;
 import org.lineageos.setupwizard.SetupWizardApp;
+import org.lineageos.setupwizard.download.AppDownloadInfo;
+import org.lineageos.setupwizard.download.AppInfo;
+import org.lineageos.setupwizard.download.Singleton;
 import org.lineageos.setupwizard.location.RegionInfo;
 
+import android.net.NetworkInfo;
+
 import java.io.File;
+import java.io.FileInputStream;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import android.util.Base64;
 import java.util.List;
 import java.util.Scanner;
 
@@ -68,6 +77,8 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
@@ -164,15 +175,15 @@ public class SetupWizardUtils {
     public static boolean hasGMS(Context context) {
         String gmsSuwPackage = hasLeanback(context) ? GMS_TV_SUW_PACKAGE : GMS_SUW_PACKAGE;
 
-        if (isPackageInstalled(context, GMS_PACKAGE) &&
-                isPackageInstalled(context, gmsSuwPackage)) {
+        if (isPackageInstalled(context, GMS_PACKAGE)
+                && isPackageInstalled(context, gmsSuwPackage)) {
             PackageManager packageManager = context.getPackageManager();
             if (LOGV) {
-                Log.v(TAG, GMS_SUW_PACKAGE + " state = " +
-                        packageManager.getApplicationEnabledSetting(gmsSuwPackage));
+                Log.v(TAG, GMS_SUW_PACKAGE + " state = "
+                        + packageManager.getApplicationEnabledSetting(gmsSuwPackage));
             }
-            return packageManager.getApplicationEnabledSetting(gmsSuwPackage) !=
-                    COMPONENT_ENABLED_STATE_DISABLED;
+            return packageManager.getApplicationEnabledSetting(gmsSuwPackage)
+                    != COMPONENT_ENABLED_STATE_DISABLED;
         }
         return false;
     }
@@ -194,8 +205,8 @@ public class SetupWizardUtils {
         ContentResolver contentResolver = context.getContentResolver();
         Settings.Global.putInt(contentResolver,
                 Settings.Global.DEVICE_PROVISIONED, 1);
-        final int userSetupComplete =
-                Settings.Secure.getInt(contentResolver, Settings.Secure.USER_SETUP_COMPLETE, 0);
+        final int userSetupComplete
+                = Settings.Secure.getInt(contentResolver, Settings.Secure.USER_SETUP_COMPLETE, 0);
         if (userSetupComplete != 0 && !SetupWizardUtils.isManagedProfile(context)) {
             Log.e(TAG, "finishSetupWizard, but userSetupComplete=" + userSetupComplete + "! "
                     + "This should not happen!");
@@ -226,10 +237,10 @@ public class SetupWizardUtils {
     public static boolean isNetworkConnectedToInternetViaEthernet(Context context) {
         ConnectivityManager cm = context.getSystemService(ConnectivityManager.class);
         NetworkCapabilities networkCapabilities = cm.getNetworkCapabilities(cm.getActiveNetwork());
-        return networkCapabilities != null &&
-                networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) &&
-                networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) &&
-                networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED);
+        return networkCapabilities != null
+                && networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)
+                && networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+                && networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED);
     }
 
     public static boolean hasLeanback(Context context) {
@@ -242,14 +253,16 @@ public class SetupWizardUtils {
         int result = biometricManager.canAuthenticate(
                 BiometricManager.Authenticators.BIOMETRIC_WEAK);
         return switch (result) {
-            case BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED,
-                    BiometricManager.BIOMETRIC_SUCCESS -> true;
-            default -> false;
+            case BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED, BiometricManager.BIOMETRIC_SUCCESS ->
+                true;
+            default ->
+                false;
         };
     }
 
     /**
-     * Disable the Home component, which is presumably SetupWizardActivity at this time.
+     * Disable the Home component, which is presumably SetupWizardActivity at
+     * this time.
      */
     public static void disableHome(Context context) {
         ComponentName homeComponent = getHomeComponent(context);
@@ -294,7 +307,7 @@ public class SetupWizardUtils {
             LineageSettings.Secure.putInt(context.getContentResolver(),
                     LineageSettings.Secure.STATS_COLLECTION,
                     privacyData.getBoolean(KEY_SEND_METRICS)
-                            ? 1 : 0);
+                    ? 1 : 0);
         }
     }
 
@@ -382,10 +395,9 @@ public class SetupWizardUtils {
         return lteOnCdmaMode == LTE_ON_CDMA_TRUE;
     }
 
-
-       public static void parseGpsData(Context context) {
+    public static void parseGpsData(Context context) {
         try {
-            Log.i(TAG,"parseGpsData......start");
+            Log.i(TAG, "parseGpsData......start");
             InputStream inputStream = context.getResources().openRawResource(R.raw.gps);
             Scanner scanner = new Scanner(inputStream).useDelimiter("\\A");
             String jsonString = scanner.hasNext() ? scanner.next() : "";
@@ -412,7 +424,6 @@ public class SetupWizardUtils {
                         String gpsCoordinates = city.getString("gps"); // Get the GPS coordinates
                         String cityId = "CI_00" + i + "00" + j + "00" + k;
 
-
                         RegionInfo regionInfo = new RegionInfo();
                         regionInfo.setCountryId(countryId);
                         regionInfo.setCountryName(countryName);
@@ -436,7 +447,7 @@ public class SetupWizardUtils {
                     }
                 }
             }
-            Log.i(TAG,"parseGpsData......end");
+            Log.i(TAG, "parseGpsData......end");
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -450,7 +461,6 @@ public class SetupWizardUtils {
         String formattedTime = currentTime.format(formatter);
         return formattedTime;
     }
-
 
     public static boolean isChineseLanguage(Context context) {
         Locale locale = context.getResources().getConfiguration().locale;
@@ -489,4 +499,143 @@ public class SetupWizardUtils {
             return String.valueOf(ojb).trim();
         }
     }
+
+    public static Boolean ToBoolean(Object ojb) {
+        try {
+            if (ojb == null) {
+                return false;
+            } else {
+                return Boolean.valueOf(ToString(ojb));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public static boolean regionMatches(final CharSequence cs, final boolean ignoreCase, final int thisStart,
+            final CharSequence substring, final int start, final int length) {
+        if (cs instanceof String && substring instanceof String) {
+            return ((String) cs).regionMatches(ignoreCase, thisStart, (String) substring, start, length);
+        }
+        int index1 = thisStart;
+        int index2 = start;
+        int tmpLen = length;
+
+        // Extract these first so we detect NPEs the same as the java.lang.String version
+        final int srcLen = cs.length() - thisStart;
+        final int otherLen = substring.length() - start;
+
+        // Check for invalid parameters
+        if (thisStart < 0 || start < 0 || length < 0) {
+            return false;
+        }
+
+        // Check that the regions are long enough
+        if (srcLen < length || otherLen < length) {
+            return false;
+        }
+
+        while (tmpLen-- > 0) {
+            final char c1 = cs.charAt(index1++);
+            final char c2 = substring.charAt(index2++);
+
+            if (c1 == c2) {
+                continue;
+            }
+
+            if (!ignoreCase) {
+                return false;
+            }
+
+            // The real same check as in String.regionMatches():
+            final char u1 = Character.toUpperCase(c1);
+            final char u2 = Character.toUpperCase(c2);
+            if (u1 != u2 && Character.toLowerCase(u1) != Character.toLowerCase(u2)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public static boolean containsIgnoreCase(final CharSequence str, final CharSequence searchStr) {
+        if (str == null || searchStr == null) {
+            return false;
+        }
+        final int len = searchStr.length();
+        final int max = str.length() - len;
+        for (int i = 0; i <= max; i++) {
+            if (regionMatches(str, true, i, searchStr, 0, len)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static String getFileMD5(File file) throws IOException, NoSuchAlgorithmException {
+        FileInputStream fis = new FileInputStream(file);
+        byte[] buffer = new byte[1024];
+        MessageDigest md5 = MessageDigest.getInstance("MD5");
+        int numRead = 0;
+        while ((numRead = fis.read(buffer)) > 0) {
+            md5.update(buffer, 0, numRead);
+        }
+        fis.close();
+        byte[] md5Bytes = md5.digest();
+
+        // 将字节数组转换为十六进制字符串
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < md5Bytes.length; i++) {
+            String hex = Integer.toHexString((int) (0xFF & md5Bytes[i]));
+            if (hex.length() == 1) {
+                sb.append('0');
+            }
+            sb.append(hex);
+        }
+
+        return sb.toString();
+    }
+
+    public static boolean isNetworkAvailable(Context context) {
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivityManager != null) {
+            NetworkCapabilities capabilities = connectivityManager.getNetworkCapabilities(connectivityManager.getActiveNetwork());
+            return capabilities != null && (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) || capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) || capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET));
+        }
+        return false;
+    }
+
+    // 将 Base64 字符串解码为 Bitmap
+    public static Bitmap base64ToBitmap(String base64String) {
+        if (base64String == null || base64String.isEmpty()) {
+            return null;
+        }
+        // 将 Base64 字符串解码为字节数组
+        byte[] decodedBytes = Base64.decode(base64String, Base64.DEFAULT);
+        // 使用 BitmapFactory 将字节数组解码为 Bitmap
+        return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
+    }
+
+    public static String getAppName(Context context, String packageName) {
+        PackageManager packageManager = context.getPackageManager();
+        try {
+            ApplicationInfo applicationInfo = packageManager.getApplicationInfo(packageName, 0);
+            CharSequence appName = packageManager.getApplicationLabel(applicationInfo);
+            return appName.toString();
+        } catch (PackageManager.NameNotFoundException e) {
+            return packageName;
+        }
+    }
+
+    public boolean isAppInstalled(Context context, String packageName) {
+        PackageManager packageManager = context.getPackageManager();
+        try {
+            ApplicationInfo applicationInfo = packageManager.getApplicationInfo(packageName, 0);
+            return true; // 
+        } catch (PackageManager.NameNotFoundException e) {
+            return false; // 
+        }
+    }
+
 }

@@ -55,6 +55,19 @@
     <string name="gps_country">Country</string>
     <string name="gps_province">Province</string>
     <string name="gps_city">City</string>
+
+    <!-- download app page -->
+    <string name="download_app">Download app</string>
+    <string name="download">Download</string>
+    <string name="cancel">Cancel</string>
+    <string name="start_download">Start download</string>
+    <string name="download_failed">Download failed</string>
+    <string name="retry">Retry</string>
+    <string name="installing">Installing</string>
+    <string name="installed">Installed</string>
+    <string name="done_button_text">Done</string>
+    <string name="setup_succeeded">Setup completion</string>
+    <string name="finish_button_text">start to use</string>
     
     <!-- Recovery update page -->
     <string name="update_recovery_title">Update Lineage Recovery</string>

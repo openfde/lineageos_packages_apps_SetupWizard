@@ -26,7 +26,10 @@ android_app {
         "setupdesign",
         "SystemUISharedLib",
         "org.lineageos.platform.internal",
-         "androidx.room_room-runtime",
+        "androidx.room_room-runtime",
+        "androidx.cardview_cardview",
+        "com.google.android.material_material",
+        "static_libs"
     ],
     plugins: ["androidx.room_room-compiler-plugin"],
     libs: ["telephony-common"],
