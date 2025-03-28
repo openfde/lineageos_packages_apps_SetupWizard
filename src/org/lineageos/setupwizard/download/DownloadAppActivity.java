@@ -108,20 +108,6 @@ public class DownloadAppActivity extends BaseSetupWizardActivity {
         }
     };
 
-    private final BroadcastReceiver mInstallResultReceiver = new BroadcastReceiver() {
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            String action = intent.getAction();
-            String packageName = intent.getData().getSchemeSpecificPart();
-            String appName = SetupWizardUtils.getAppName(context, packageName);
-            Log.w(TAG, "InstallResultReceiver  action " + action + ",packageName " + packageName + ",appName " + appName);
-            EventBus.getDefault().post(new Event(EventType.INSTALL_COMPLETED, appName));
-
-            appName = intent.getStringExtra("appName");
-            Log.w(TAG, "InstallResultReceiver  appName " + appName);
-        }
-    };
 
     @Override
 
@@ -142,7 +128,6 @@ public class DownloadAppActivity extends BaseSetupWizardActivity {
         intentFilter.addAction(Intent.ACTION_PACKAGE_REPLACED);
         // intentFilter.addAction("org.lineageos.setupwizard.ACTION_INSTALL_RESULT");
         intentFilter.addDataScheme("package");
-        // registerReceiver(mInstallResultReceiver, intentFilter);
     }
 
     private void initView() {
@@ -401,8 +386,7 @@ public class DownloadAppActivity extends BaseSetupWizardActivity {
     @Override
     protected void onDestroy() {
         EventBus.getDefault().unregister(this);
-        unregisterReceiver(mInstallResultReceiver);
-
+      
         if (intentService != null) {
             stopService(intentService);
         }
