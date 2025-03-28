@@ -24,6 +24,8 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.view.WindowInsets;
+import android.view.WindowInsetsController;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.activity.result.ActivityResult;
@@ -61,6 +63,7 @@ public abstract class BaseSetupWizardActivity extends AppCompatActivity implemen
                 new StartDecoratedActivityForResult(),
                 BaseSetupWizardActivity.this::onNextIntentResult);
         initLayout();
+        requestFullScreenWindow();
         mNavigationBar = getNavigationBar();
         if (mNavigationBar != null) {
             mNavigationBar.setNavigationBarListener(this);
@@ -76,6 +79,15 @@ public abstract class BaseSetupWizardActivity extends AppCompatActivity implemen
         });
         // Apply default transition, to take effect whenever leaving this activity.
         applyForwardTransition();
+    }
+
+    protected void requestFullScreenWindow(){
+        WindowInsetsController insetsController = getWindow().getInsetsController();
+        if (insetsController != null) {
+            insetsController.hide(WindowInsets.Type.statusBars());
+            insetsController.hide(WindowInsets.Type.navigationBars());
+            insetsController.setSystemBarsBehavior(WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);
+        }
     }
 
     @Override
