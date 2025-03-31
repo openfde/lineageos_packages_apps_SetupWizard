@@ -1,0 +1,15 @@
+<!-- res/drawable/list_item_background.xml -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 选中状态 -->
+    <item android:state_activated="true">
+        <shape>
+            <solid android:color="#2196F3" /> <!-- 蓝色高亮 -->
+        </shape>
+    </item>
+    <!-- 默认状态 -->
+    <item>
+        <shape>
+            <solid android:color="@android:color/transparent" /> <!-- 透明背景 -->
+        </shape>
+    </item>
+</selector>

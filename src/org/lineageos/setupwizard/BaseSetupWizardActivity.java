@@ -6,6 +6,7 @@
 package org.lineageos.setupwizard;
 
 import static android.view.View.INVISIBLE;
+import static android.view.View.GONE;
 
 import static androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult;
 
@@ -191,6 +192,10 @@ public abstract class BaseSetupWizardActivity extends AppCompatActivity implemen
         nextAction(RESULT_OK);
     }
 
+    protected void onPreviousPressed() {
+        finishAction(RESULT_CANCELED);
+    }
+
     protected void onSkipPressed() {
         nextAction(RESULT_SKIP);
     }
@@ -214,12 +219,23 @@ public abstract class BaseSetupWizardActivity extends AppCompatActivity implemen
     protected final void hideNextButton() {
         if (mNavigationBar != null) {
             final Button next = mNavigationBar.getNextButton();
-            next.setVisibility(INVISIBLE);
+            next.setVisibility(GONE);
+        }
+    }
+
+    protected final void hidePreviousButton() {
+        if (mNavigationBar != null) {
+            final Button previous = mNavigationBar.getPreviousButton();
+            previous.setVisibility(GONE);
         }
     }
 
     public void onNavigateNext() {
         onNextPressed();
+    }
+
+    public void onNavigatePrevious() {
+        onPreviousPressed();
     }
 
     public void onSkip() {

@@ -21,20 +21,23 @@ public class NavigationLayout extends RelativeLayout {
      */
     public interface NavigationBarListener {
         void onNavigateNext();
+        void onNavigatePrevious();
 
         void onSkip();
     }
 
     private final Button mNextButton;
+    private final Button mPreviousButton;
     private final Button mSkipButton;
 
     public NavigationLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
         View.inflate(context, R.layout.navigation_layout, this);
         mNextButton = findViewById(R.id.navbar_next);
+        mPreviousButton = findViewById(R.id.navbar_previous);
         mSkipButton = findViewById(R.id.navbar_skip);
-        FooterButtonStyleUtils.applyPrimaryButtonPartnerResource(context, mNextButton, true);
-        FooterButtonStyleUtils.applySecondaryButtonPartnerResource(context, mSkipButton, true);
+        //FooterButtonStyleUtils.applyPrimaryButtonPartnerResource(context, mNextButton, true);
+        //FooterButtonStyleUtils.applySecondaryButtonPartnerResource(context, mSkipButton, true);
 
         TypedArray a = context.getTheme().obtainStyledAttributes(
                 attrs, R.styleable.NavigationLayout, 0, 0);
@@ -59,8 +62,13 @@ public class NavigationLayout extends RelativeLayout {
         return mNextButton;
     }
 
+    public Button getPreviousButton() {
+        return mPreviousButton;
+    }
+
     public void setNavigationBarListener(NavigationBarListener listener) {
         mSkipButton.setOnClickListener(view -> listener.onSkip());
         mNextButton.setOnClickListener(view -> listener.onNavigateNext());
+        mPreviousButton.setOnClickListener(view -> listener.onNavigatePrevious());
     }
 }

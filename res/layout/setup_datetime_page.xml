@@ -4,103 +4,186 @@
      SPDX-FileCopyrightText: 2017-2024 The LineageOS Project
      SPDX-License-Identifier: Apache-2.0
 -->
-<com.google.android.setupdesign.GlifLayout
+
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/setup_wizard_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/dark_gray">
+    <RelativeLayout
+        android:layout_width="900dp"
+        android:layout_height="780dp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/rounded_background">
+        <ImageView
+            android:layout_marginTop="61dp"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_datetime"/>
+        <TextView
+            android:layout_marginTop="200dp"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="@string/setup_datetime"
+            android:textColor="#ff262626"
+            android:textSize="32sp"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"/>
+        <TextView
+            android:layout_marginTop="269dp"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="@string/date_time_summary"
+            android:textColor="#ff262626"
+            android:textSize="16sp"
+            android:layout_width="wrap_content"
+            android:layout_height="22dp"/>
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        style="@style/SudContentFrame">
+        <Spinner
+            android:id="@+id/timezone_list"
+            android:layout_width="320dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="256dp"
+            android:layout_marginTop="339dp"
+            android:background="@drawable/rounded_5dp_background_light"
+            android:saveEnabled="false" />
 
-        <FrameLayout
-            android:id="@+id/page"
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_alignTop="@id/date_text"
+            android:layout_marginRight="12dp"
+            android:layout_toLeftOf="@id/date_text">
+            <TextView
+                android:id="@+id/date_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/date_colon"
+                android:layout_marginRight="0dp"
+                android:layout_centerVertical="true"
+                android:text="@string/setup_current_date"
+                android:textSize="16sp"
+                android:textColor="@color/dark_gray"/>
+            <TextView
+                android:id="@+id/date_colon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:text=":"
+                android:textSize="16sp"
+                android:textColor="@color/dark_gray"/>
+        </RelativeLayout>
+
+
+        <TextView
+            android:id="@+id/date_text"
+            android:layout_width="320dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="24dp"
+            android:layout_below="@id/timezone_list"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="256dp"
+            android:gravity="start|center_vertical"
+            android:paddingLeft="12dp"
+            android:textSize="16sp"
+            android:clickable="true"
+            android:fontFamily="sans-serif-medium"
+            android:background="@drawable/rounded_5dp_background_light"
+            android:textColor="@color/dark_gray"/>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_alignTop="@id/time_text"
+            android:layout_marginRight="12dp"
+            android:layout_toLeftOf="@id/time_text">
+            <TextView
+                android:id="@+id/time_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/time_colon"
+                android:layout_marginRight="0dp"
+                android:layout_centerVertical="true"
+                android:text="@string/setup_current_time"
+                android:textSize="16sp"
+                android:textColor="@color/dark_gray"/>
+            <TextView
+                android:id="@+id/time_colon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:text=":"
+                android:textSize="16sp"
+                android:textColor="@color/dark_gray"/>
+        </RelativeLayout>
+        <TextView
+            android:id="@+id/time_text"
+            android:layout_width="320dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="24dp"
+            android:paddingLeft="12dp"
+            android:textSize="16sp"
+            android:layout_below="@id/date_text"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="256dp"
+            android:gravity="start|center_vertical"
+            android:clickable="true"
+            android:background="@drawable/rounded_5dp_background_light"
+            android:textColor="@color/dark_gray"
+            android:fontFamily="sans-serif-medium"/>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:layout_marginTop="339dp"
+            android:layout_centerHorizontal="true"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
+            android:layout_height="match_parent">
 
-            <ScrollView
+            <FrameLayout
+                android:id="@+id/page"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fillViewport="true">
+                android:layout_height="0dp"
+                android:layout_weight="1">
 
-                <LinearLayout
-                    android:orientation="vertical"
+                <ScrollView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="match_parent"
+                    android:fillViewport="true">
 
-                    <Spinner
-                        android:id="@+id/timezone_list"
+                    <LinearLayout
+                        android:orientation="vertical"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="24dp"
-                        android:saveEnabled="false" />
+                        android:layout_height="wrap_content">
 
-                    <TwoLineListItem
-                        android:id="@+id/date_item"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:minHeight="?android:attr/listPreferredItemHeight"
-                        android:mode="twoLine"
-                        android:clickable="true"
-                        android:background="?android:attr/selectableItemBackground"
-                        android:gravity="center_vertical">
 
-                        <TextView
-                            android:id="@+id/date_title"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="@string/setup_current_date"
-                            style="@style/SpinnerItem" />
 
-                        <TextView
-                            android:id="@+id/date_text"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/date_title"
-                            android:layout_alignStart="@id/date_title"
-                            android:fontFamily="sans-serif-medium"
-                            style="@style/SpinnerItem" />
-                    </TwoLineListItem>
 
-                    <TwoLineListItem
-                        android:id="@+id/time_item"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:minHeight="?android:attr/listPreferredItemHeight"
-                        android:mode="twoLine"
-                        android:clickable="true"
-                        android:background="?android:attr/selectableItemBackground"
-                        android:gravity="center_vertical">
 
-                        <TextView
-                            android:id="@+id/time_title"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="@string/setup_current_time"
-                            style="@style/SpinnerItem" />
 
-                        <TextView
-                            android:id="@+id/time_text"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/time_title"
-                            android:layout_alignStart="@id/time_title"
-                            android:fontFamily="sans-serif-medium"
-                            style="@style/SpinnerItem" />
-                    </TwoLineListItem>
 
-                </LinearLayout>
-            </ScrollView>
-        </FrameLayout>
+                    </LinearLayout>
+                </ScrollView>
+            </FrameLayout>
+        </LinearLayout>
 
         <org.lineageos.setupwizard.NavigationLayout
             android:id="@+id/navigation_bar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"/>
+    </RelativeLayout>
+<com.google.android.setupdesign.GlifLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/setup_wizard_layout"
+    android:visibility="gone"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    </LinearLayout>
+
 </com.google.android.setupdesign.GlifLayout>
+</RelativeLayout>

@@ -6,7 +6,8 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="64dp"
+    android:background="@drawable/rounded_bottom_background">
 
     <Button
         android:id="@+id/navbar_skip"
@@ -14,15 +15,34 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:text="@string/skip"
-        android:visibility="gone"
-        style="@style/SudGlifButton.Secondary" />
-
-    <Button
-        android:id="@+id/navbar_next"
+        android:visibility="gone"/>
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:text="@string/next"
-        style="@style/SudGlifButton.Primary" />
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_centerInParent="true">
+        <android.widget.Button
+            android:id="@+id/navbar_previous"
+            android:layout_width="96dp"
+            android:layout_height="32dp"
+            android:background="@drawable/button_rounded_background_gray"
+            android:layout_marginEnd="24dp"
+            android:textColor="@color/black"
+            android:gravity="center"
+            android:textSize="14sp"
+            android:text="@string/previous"/>
+        <android.widget.Button
+            android:id="@+id/navbar_next"
+            android:layout_width="96dp"
+            android:layout_height="32dp"
+            android:background="@drawable/button_rounded_background_blue"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:textSize="14sp"
+            android:text="@string/next"/>
+    </LinearLayout>
+
 
 </RelativeLayout>

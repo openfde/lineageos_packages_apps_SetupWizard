@@ -31,6 +31,7 @@ import androidx.fragment.app.DialogFragment;
 
 import com.android.settingslib.datetime.ZoneGetter;
 
+import org.lineageos.setupwizard.location.CitySettingsActivity;
 import org.lineageos.setupwizard.util.SetupWizardUtils;
 
 import java.util.Calendar;
@@ -38,10 +39,11 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
+import android.util.Log;
 
 public class DateTimeActivity extends BaseSetupWizardActivity implements
         TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener {
-
+    private static final String TAG = DateTimeActivity.class.getSimpleName();
     private static final String KEY_ID = "id"; // value: String
     private static final String KEY_DISPLAYNAME = "name"; // value: String
     private static final String KEY_GMT = "gmt"; // value: String
@@ -63,15 +65,16 @@ public class DateTimeActivity extends BaseSetupWizardActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(TAG, "onCreate savedInstanceState=" + savedInstanceState);
         setNextText(R.string.next);
         getGlifLayout().setDescriptionText(getString(R.string.date_time_summary));
 
         final Spinner spinner = findViewById(R.id.timezone_list);
         final SimpleAdapter adapter = constructTimezoneAdapter(this);
         mCurrentTimeZone = TimeZone.getDefault();
-        View dateView = findViewById(R.id.date_item);
+        View dateView = findViewById(R.id.date_text);
         dateView.setOnClickListener((view) -> showDatePicker());
-        View timeView = findViewById(R.id.time_item);
+        View timeView = findViewById(R.id.time_text);
         timeView.setOnClickListener((view) -> showTimePicker());
         mDateTextView = findViewById(R.id.date_text);
         mTimeTextView = findViewById(R.id.time_text);

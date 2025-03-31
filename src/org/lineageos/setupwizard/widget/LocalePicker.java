@@ -88,7 +88,7 @@ public class LocalePicker extends LinearLayout {
     /**
      * The number of items show in the selector wheel.
      */
-    private static int sSelectorWheelItemCount = 3;
+    private static int sSelectorWheelItemCount = 9;
 
     /**
      * The default update interval during long press.

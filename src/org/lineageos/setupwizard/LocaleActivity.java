@@ -28,6 +28,7 @@ import com.android.internal.telephony.util.LocaleUtils;
 
 import com.google.android.setupcompat.util.SystemBarHelper;
 
+import org.lineageos.setupwizard.util.SetupWizardUtils;
 import org.lineageos.setupwizard.widget.LocalePicker;
 
 import java.util.List;
@@ -69,6 +70,13 @@ public class LocaleActivity extends BaseSetupWizardActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(TAG, "onCreate savedInstanceState=" + savedInstanceState);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                SetupWizardUtils.parseGpsData(LocaleActivity.this);
+            }
+        }).start();
         // SystemBarHelper.setBackButtonVisible(getWindow(), true);
         setNextText(R.string.next);
         mLanguagePicker = findViewById(R.id.locale_list);
@@ -78,6 +86,7 @@ public class LocaleActivity extends BaseSetupWizardActivity {
             mLanguagePicker.setOnClickListener((View v) -> getNextButton().performClick());
         }
         loadLanguages();
+        hidePreviousButton();
     }
 
     @Override
