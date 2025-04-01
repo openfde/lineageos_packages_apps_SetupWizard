@@ -289,19 +289,19 @@ public class CitySettingsActivity extends BaseSetupWizardActivity {
         if (null == popWindow) {
             if (v.getId() == R.id.txtCountry) {
                 if (listCountrys.size() > 10) {
-                    height = 200;
+                    height = 350;
                 }
             } else if (v.getId() == R.id.txtProvince) {
                 if (listProvinces.size() > 10) {
-                    height = 200;
+                    height = 350;
                 }
             } else {
                 if (listCitys.size() > 10) {
-                    height = 200;
+                    height = 350;
                 }
             }
             popWindow = new PopupWindow(view,
-                    200, height, true);
+                    320, height, true);
             popWindow.setFocusable(false);// 底部导航消失
             popWindow.setSoftInputMode(popWindow.INPUT_METHOD_NEEDED);
             popWindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
@@ -323,7 +323,7 @@ public class CitySettingsActivity extends BaseSetupWizardActivity {
             // 要为popWindow设置一个背景才有效
             popWindow.setBackgroundDrawable(new ColorDrawable(0x00000000));
             // PopupWindowCompat.showAsDropDown(popWindow, v, 0, 0, Gravity.START);
-            PopupWindowCompat.showAsDropDown(popWindow, v, -50, 10, Gravity.RIGHT);
+            PopupWindowCompat.showAsDropDown(popWindow, v, 0, 6, Gravity.RIGHT);
         }
 
     }

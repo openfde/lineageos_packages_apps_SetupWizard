@@ -4,137 +4,128 @@
      SPDX-FileCopyrightText: 2017-2024 The LineageOS Project
      SPDX-License-Identifier: Apache-2.0
 -->
-<com.google.android.setupdesign.GlifLayout
+
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/setup_wizard_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="900dp"
+        android:layout_height="780dp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/rounded_background">
+        <ImageView
+            android:layout_marginTop="61dp"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_city_settings"/>
+        <TextView
+            android:layout_marginTop="200dp"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="@string/setup_city_title"
+            android:textColor="#ff262626"
+            android:textSize="32sp"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"/>
+        <TextView
+            android:layout_marginTop="269dp"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="@string/setup_city_summary"
+            android:textColor="#ff262626"
+            android:textSize="16sp"
+            android:layout_width="wrap_content"
+            android:layout_height="22dp"/>
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        style="@style/SudContentFrame">
+        <TextView
+            android:text="@string/gps_country"
+            android:layout_width="wrap_content"
+            android:textSize="16sp"
+            android:textColor="#ff262626"
+            android:layout_height="40dp"
+            android:layout_alignTop="@id/txtCountry"
+            android:gravity="center_vertical"
+            android:layout_marginRight="12dp"
+            android:layout_toLeftOf="@id/txtCountry"/>
 
-        <FrameLayout
-            android:id="@+id/page"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
+        <TextView
+            android:id="@+id/txtCountry"
+            android:layout_width="320dp"
+            android:layout_height="40dp"
+            android:text=""
+            android:textSize="16sp"
+            android:textColor="#ff262626"
+            android:gravity="start|center_vertical"
+            android:paddingLeft="12dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="260dp"
+            android:layout_marginTop="342dp"
+            android:background="@drawable/custom_spinner_background"/>
 
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fillViewport="true">
+        <TextView
+            android:text="@string/gps_province"
+            android:layout_width="wrap_content"
+            android:textSize="16sp"
+            android:textColor="#ff262626"
+            android:layout_height="40dp"
+            android:layout_alignTop="@id/txtProvince"
+            android:gravity="center_vertical"
+            android:layout_marginRight="12dp"
+            android:layout_toLeftOf="@id/txtProvince"/>
 
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/txtProvince"
+            android:layout_width="320dp"
+            android:layout_height="40dp"
+            android:layout_below="@id/txtCountry"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="260dp"
+            android:layout_marginTop="24dp"
+            android:text=""
+            android:textSize="16sp"
+            android:textColor="#ff262626"
+            android:gravity="start|center_vertical"
+            android:paddingLeft="12dp"
+            android:background="@drawable/custom_spinner_background"/>
+        <TextView
+            android:text="@string/gps_city"
+            android:layout_width="wrap_content"
+            android:textSize="16sp"
+            android:textColor="#ff262626"
+            android:layout_height="40dp"
+            android:layout_alignTop="@id/txtCity"
+            android:gravity="center_vertical"
+            android:layout_marginRight="12dp"
+            android:layout_toLeftOf="@id/txtCity"/>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:padding="16dp"
-                        android:layout_marginTop="1dp"
-                        android:background="@color/white"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:text="@string/gps_country"
-                            android:layout_weight="2"
-                            android:layout_width="0dp"
-                            android:textSize="16sp"
-                            android:textColor="#999"
-                            android:layout_gravity="center"
-                            android:layout_height="match_parent" />
-
-                        <TextView
-                            android:id="@+id/txtCountry"
-                            android:layout_width="0dp"
-                            android:layout_weight="3"
-                            android:text=""
-                            android:textSize="16sp"
-                            android:textColor="#333"
-                            android:layout_gravity="center"
-                            android:drawableRight="@drawable/icon_down"
-                            android:layout_height="match_parent" />
-
-                    </LinearLayout>
-
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:padding="16dp"
-                        android:layout_marginTop="1dp"
-                        android:background="@color/white"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:text="@string/gps_province"
-                            android:layout_weight="2"
-                            android:layout_width="0dp"
-                            android:textSize="16sp"
-                            android:textColor="#999"
-                            android:layout_gravity="center"
-                            android:layout_height="match_parent" />
-
-                        <TextView
-                            android:id="@+id/txtProvince"
-                            android:layout_width="0dp"
-                            android:layout_weight="3"
-                            android:text=""
-                            android:textSize="16sp"
-                            android:textColor="#333"
-                            android:layout_gravity="center"
-                            android:drawableRight="@drawable/icon_down"
-                            android:layout_height="match_parent" />
-
-                    </LinearLayout>
-
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:padding="16dp"
-                        android:layout_marginTop="1dp"
-                        android:background="@color/white"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:text="@string/gps_city"
-                            android:layout_weight="2"
-                            android:layout_width="0dp"
-                            android:textSize="16sp"
-                            android:textColor="#999"
-                            android:layout_gravity="center"
-                            android:layout_height="match_parent" />
-
-                        <TextView
-                            android:id="@+id/txtCity"
-                            android:layout_width="0dp"
-                            android:layout_weight="3"
-                            android:text=""
-                            android:textSize="16sp"
-                            android:textColor="#333"
-                            android:layout_gravity="center"
-                            android:drawableRight="@drawable/icon_down"
-                            android:layout_height="match_parent" />
-
-                    </LinearLayout>
-
-                </LinearLayout>
-            </ScrollView>
-        </FrameLayout>
-
+        <TextView
+            android:id="@+id/txtCity"
+            android:layout_width="320dp"
+            android:layout_height="40dp"
+            android:layout_below="@id/txtProvince"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="260dp"
+            android:layout_marginTop="24dp"
+            android:text=""
+            android:textSize="16sp"
+            android:textColor="#ff262626"
+            android:gravity="start|center_vertical"
+            android:paddingLeft="12dp"
+            android:background="@drawable/custom_spinner_background"/>
         <org.lineageos.setupwizard.NavigationLayout
             android:id="@+id/navigation_bar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"/>
+    </RelativeLayout>
+<com.google.android.setupdesign.GlifLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/setup_wizard_layout"
+    android:visibility="gone"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    </LinearLayout>
 </com.google.android.setupdesign.GlifLayout>
+    </RelativeLayout>
