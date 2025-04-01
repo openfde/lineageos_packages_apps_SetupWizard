@@ -1498,8 +1498,8 @@ public class LocalePicker extends LinearLayout {
     }
 
     private void initializeFadingEdges() {
-        setVerticalFadingEdgeEnabled(true);
-        setFadingEdgeLength((mBottom - mTop - mTextSize) / 2);
+        setVerticalFadingEdgeEnabled(false);
+        setFadingEdgeLength(0);
     }
 
     /**
