@@ -15,13 +15,16 @@
     <view
         class="org.lineageos.setupwizard.widget.LocalePicker$CustomEditText"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="?android:attr/textColorPrimary"
+        android:textColor="#ff262626"
+        android:paddingTop="9dp"
+        android:paddingBottom="9dp"
+        android:textSize="16sp"
         android:id="@+id/localepicker_input"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:gravity="center"
         android:singleLine="true"
-        android:background="@null" />
+        android:background="@drawable/button_rounded_6dp_background_blue" />
 
     <ImageButton
         android:id="@+id/lp__decrement"

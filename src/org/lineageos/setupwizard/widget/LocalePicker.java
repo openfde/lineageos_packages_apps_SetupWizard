@@ -734,7 +734,7 @@ public class LocalePicker extends LinearLayout {
         final int action = event.getActionMasked();
         if (action == MotionEvent.ACTION_DOWN) {
             removeAllCallbacks();
-            mInputText.setVisibility(View.INVISIBLE);
+            mInputText.setVisibility(View.VISIBLE);
             mLastDownOrMoveEventY = mLastDownEventY = event.getY();
             mLastDownEventTime = event.getEventTime();
             mIngonreMoveEvents = false;
@@ -1115,7 +1115,7 @@ public class LocalePicker extends LinearLayout {
         if (inputMethodManager != null && inputMethodManager.isActive(mInputText)) {
             inputMethodManager.hideSoftInputFromWindow(getWindowToken(), 0);
             if (mHasSelectorWheel) {
-                mInputText.setVisibility(View.INVISIBLE);
+                mInputText.setVisibility(View.VISIBLE);
             }
         }
     }
@@ -1460,7 +1460,7 @@ public class LocalePicker extends LinearLayout {
      */
     private void changeValueByOne(boolean increment) {
         if (mHasSelectorWheel) {
-            mInputText.setVisibility(View.INVISIBLE);
+            mInputText.setVisibility(View.VISIBLE);
             if (!moveToFinalScrollerPosition(mFlingScroller)) {
                 moveToFinalScrollerPosition(mAdjustScroller);
             }
