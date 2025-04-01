@@ -8,8 +8,7 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/dark_gray">
+    android:layout_height="match_parent">
     <RelativeLayout
         android:layout_width="900dp"
         android:layout_height="780dp"
@@ -40,6 +39,33 @@
             android:layout_width="wrap_content"
             android:layout_height="22dp"/>
 
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_alignTop="@id/timezone_list"
+            android:layout_marginRight="12dp"
+            android:layout_toLeftOf="@id/timezone_list">
+            <TextView
+                android:id="@+id/time_zone_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/time_zone_colon"
+                android:layout_marginRight="0dp"
+                android:layout_centerVertical="true"
+                android:text="@string/setup_current_time_zone"
+                android:textSize="16sp"
+                android:textColor="@color/dark_gray"/>
+            <TextView
+                android:id="@+id/time_zone_colon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:text=":"
+                android:textSize="16sp"
+                android:textColor="@color/dark_gray"/>
+        </RelativeLayout>
+
         <Spinner
             android:id="@+id/timezone_list"
             android:layout_width="320dp"
@@ -47,7 +73,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="256dp"
             android:layout_marginTop="339dp"
-            android:background="@drawable/rounded_5dp_background_light"
+            android:background="@drawable/custom_spinner_background"
             android:saveEnabled="false" />
 
         <RelativeLayout
@@ -76,7 +102,6 @@
                 android:textSize="16sp"
                 android:textColor="@color/dark_gray"/>
         </RelativeLayout>
-
 
         <TextView
             android:id="@+id/date_text"

@@ -24,6 +24,7 @@
     <string name="sim_missing_summary" product="default">在您的手机上未检测到 SIM 卡。请按照您手机附带说明书中的操作方法插入 SIM 卡。</string>
     <string name="setup_datetime">日期和时间</string>
     <string name="date_time_summary">如果需要，设置时区和调整日期和时间</string>
+    <string name="setup_current_time_zone">当前时区</string>
     <string name="setup_current_date">当前日期</string>
     <string name="setup_current_time">当前时间</string>
     <string name="intro_restore_title">恢复应用和数据</string>

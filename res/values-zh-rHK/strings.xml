@@ -16,6 +16,7 @@
     <string name="sim_missing_summary" product="default">您的手機中未發現 SIM 卡。若要插入一張 SIM 卡，請查閱您的裝置附贈的說明。</string>
     <string name="setup_datetime">日期&amp;時間</string>
     <string name="date_time_summary">如果需要的話，請設定您的時區并調整日期與時間</string>
+    <string name="setup_current_time_zone">當前時區</string>
     <string name="setup_current_date">當前日期</string>
     <string name="setup_current_time">當前時間</string>
     <string name="setup_location">定位服務</string>
