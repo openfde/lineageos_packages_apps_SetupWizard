@@ -1645,6 +1645,7 @@ public class LocalePicker extends LinearLayout {
                 : mDisplayedValues[mValue - mMinValue];
         if (!TextUtils.isEmpty(text) && !text.equals(mInputText.getText().toString())) {
             mInputText.setText(text);
+            mInputText.setTextColor(Color.WHITE);
             return true;
         }
 

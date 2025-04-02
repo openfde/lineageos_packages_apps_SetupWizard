@@ -6,6 +6,7 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="next">下一步</string>
+    <string name="previous">上一步</string>
     <string name="skip">略過</string>
     <string name="start">開始</string>
     <string name="ok">確定</string>
