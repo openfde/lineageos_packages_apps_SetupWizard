@@ -34,23 +34,36 @@
             android:layout_marginTop="285dp"
             android:layout_centerHorizontal="true"
             android:background="@drawable/rounded_background_light">
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/application_recycler_view"
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                />
+                android:layout_height="match_parent"
+                android:fillViewport="true">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/downloadingRecyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="gone" />
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/noDownloadingRecyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="gone"/>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/application_recycler_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/downloadingRecyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/noDownloadingRecyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"/>
+
+                </LinearLayout>
+            </ScrollView>
         </RelativeLayout>
         <org.lineageos.setupwizard.NavigationLayout
             android:id="@+id/navigation_bar"
@@ -77,21 +90,6 @@
             android:layout_height="0dp"
             android:layout_weight="1">
 
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fillViewport="true">
-
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-
-
-
-                </LinearLayout>
-            </ScrollView>
         </FrameLayout>
 
         <org.lineageos.setupwizard.NavigationLayout
