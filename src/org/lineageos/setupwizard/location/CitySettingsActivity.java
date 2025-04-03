@@ -30,6 +30,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import androidx.core.content.ContextCompat;
 
 import androidx.annotation.NonNull;
 import androidx.core.widget.PopupWindowCompat;
@@ -321,9 +322,9 @@ public class CitySettingsActivity extends BaseSetupWizardActivity {
                 }
             });
             // 要为popWindow设置一个背景才有效
-            popWindow.setBackgroundDrawable(new ColorDrawable(0x00000000));
+            popWindow.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.rounded_8dp_background_light));
             // PopupWindowCompat.showAsDropDown(popWindow, v, 0, 0, Gravity.START);
-            PopupWindowCompat.showAsDropDown(popWindow, v, 0, 6, Gravity.RIGHT);
+            PopupWindowCompat.showAsDropDown(popWindow, v, 0, 6, Gravity.CENTER_HORIZONTAL);
         }
 
     }

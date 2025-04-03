@@ -17,14 +17,14 @@
 -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:layout_width="298dp"
     android:layout_height="wrap_content"
     android:layout_gravity="left"
     android:gravity="left"
-    android:background="@color/white"
-    android:paddingHorizontal="32dp"
-    android:layout_marginBottom="1dp"
-    android:paddingVertical="8dp"
+    android:background="@drawable/item_background"
+    android:paddingHorizontal="7dp"
+    android:layout_marginBottom="0dp"
+    android:paddingVertical="7dp"
     android:id="@+id/rootView"
     android:orientation="horizontal">
 
@@ -34,6 +34,8 @@
         android:singleLine="true"
         android:layout_width="match_parent"
         android:visibility="visible"
+        android:textColor="#fa000000"
+        android:textSize="14sp"
         android:layout_height="wrap_content"/>
 
 </LinearLayout>
