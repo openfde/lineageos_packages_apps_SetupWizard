@@ -9,6 +9,8 @@ import java.lang.reflect.Type;
 import org.lineageos.setupwizard.BaseSetupWizardActivity;
 import android.content.Intent;
 import android.os.Bundle;
+
+import org.lineageos.setupwizard.FinishActivity;
 import org.lineageos.setupwizard.R;
 import android.util.Log;
 import android.content.Context;
@@ -131,6 +133,7 @@ public class DownloadAppActivity extends BaseSetupWizardActivity {
     }
 
     private void initView() {
+        setNextText(R.string.start_download);
         recyclerView = findViewById(R.id.application_recycler_view);
         downloadingRecyclerView = findViewById(R.id.downloadingRecyclerView);
         noDownloadingRecyclerView = findViewById(R.id.noDownloadingRecyclerView);
@@ -354,8 +357,10 @@ public class DownloadAppActivity extends BaseSetupWizardActivity {
             downloadingRecyclerView.setVisibility(View.VISIBLE);
             noDownloadingRecyclerView.setVisibility(View.VISIBLE);
             installApp();
+            setNextText(R.string.done_button_text);
         } else {
-            super.onNextPressed();
+            SetupWizardUtils.finishSetupWizard(DownloadAppActivity.this);
+            finish();
         }
     }
 
@@ -386,7 +391,7 @@ public class DownloadAppActivity extends BaseSetupWizardActivity {
     @Override
     protected void onDestroy() {
         EventBus.getDefault().unregister(this);
-      
+        DOWNLOAD_STATUS = 0;
         if (intentService != null) {
             stopService(intentService);
         }
