@@ -73,6 +73,8 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="256dp"
             android:layout_marginTop="339dp"
+            style="@style/CustomSpinnerTheme"
+            android:textSize="16sp"
             android:background="@drawable/custom_spinner_background"
             android:saveEnabled="false" />
 

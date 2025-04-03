@@ -31,7 +31,6 @@ import androidx.fragment.app.DialogFragment;
 
 import com.android.settingslib.datetime.ZoneGetter;
 
-import org.lineageos.setupwizard.location.CitySettingsActivity;
 import org.lineageos.setupwizard.util.SetupWizardUtils;
 
 import java.util.Calendar;
@@ -40,6 +39,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
 import android.util.Log;
+import android.view.MotionEvent;
 
 public class DateTimeActivity extends BaseSetupWizardActivity implements
         TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener {
@@ -49,6 +49,8 @@ public class DateTimeActivity extends BaseSetupWizardActivity implements
     private static final String KEY_GMT = "gmt"; // value: String
     private static final String KEY_OFFSET = "offset"; // value: int (Integer)
 
+    private boolean isSpinnerOpen = false;
+    private Spinner spinner;
     private TimeZone mCurrentTimeZone;
     private TextView mDateTextView;
     private TextView mTimeTextView;
@@ -68,9 +70,9 @@ public class DateTimeActivity extends BaseSetupWizardActivity implements
         Log.d(TAG, "onCreate savedInstanceState=" + savedInstanceState);
         setNextText(R.string.next);
         getGlifLayout().setDescriptionText(getString(R.string.date_time_summary));
-
-        final Spinner spinner = findViewById(R.id.timezone_list);
+        spinner = findViewById(R.id.timezone_list);
         final SimpleAdapter adapter = constructTimezoneAdapter(this);
+        adapter.setDropDownViewResource(R.layout.date_time_setup_custom_list_item_2_dropdown);
         mCurrentTimeZone = TimeZone.getDefault();
         View dateView = findViewById(R.id.date_text);
         dateView.setOnClickListener((view) -> showDatePicker());
@@ -98,12 +100,22 @@ public class DateTimeActivity extends BaseSetupWizardActivity implements
                         alarm.setTimeZone(tzId);
                         mCurrentTimeZone = TimeZone.getTimeZone(tzId);
                     }
-
+                    isSpinnerOpen = false;
+                    updateSpinnerIconVisibility();
                 }
 
                 @Override
                 public void onNothingSelected(AdapterView<?> adapterView) {
+                    isSpinnerOpen = false;
+                    updateSpinnerIconVisibility();
                 }
+            });
+            spinner.setOnTouchListener((v, event) -> {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    isSpinnerOpen = true;
+                    updateSpinnerIconVisibility();
+                }
+                return false;
             });
         });
         // Pre-select current/default date if epoch
@@ -123,6 +135,14 @@ public class DateTimeActivity extends BaseSetupWizardActivity implements
                 }
             }
         });
+        updateSpinnerIconVisibility();
+    }
+    private void updateSpinnerIconVisibility() {
+        if (isSpinnerOpen) {
+            spinner.setBackgroundResource(R.drawable.custom_spinner_background_dropdown);
+        } else {
+            spinner.setBackgroundResource(R.drawable.custom_spinner_background);
+        }
     }
 
     @Override

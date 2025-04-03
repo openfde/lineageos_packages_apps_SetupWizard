@@ -32,7 +32,7 @@
     <string name="intro_restore_button">从备份中还原</string>
     <string name="setup_location">位置服务</string>
     <string name="setup_city_title">选择城市</string>
-    <string name="setup_city_summary">选择您所在城市，以便更好的服务支持</string>
+    <string name="setup_city_summary">选择您所在城市，以便更好的定位服务支持</string>
     <string name="gps_country">国家:</string>
     <string name="gps_province">省份:</string>
     <string name="gps_city">城市:</string>

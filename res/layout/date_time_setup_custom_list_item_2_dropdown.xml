@@ -22,7 +22,7 @@
             android:layout_toLeftOf="@id/text2"
             android:layout_centerVertical="true"
             android:minHeight="16dip"
-            android:textSize="16sp"
+            android:textSize="14sp"
             android:paddingLeft="12dp"
             android:paddingRight="12dp"
             android:textColor="@color/dark_gray"/>
@@ -31,7 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:minHeight="10dip"
-            android:textSize="16sp"
+            android:textSize="14sp"
             android:textColor="@color/light_gray"
             android:fontFamily="sans-serif-medium"/>
     </LinearLayout>

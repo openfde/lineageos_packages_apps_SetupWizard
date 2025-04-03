@@ -15,6 +15,11 @@
         <item name="android:paddingLeft">@dimen/content_margin_left</item>
     </style>
 
+    <style name="CustomSpinnerTheme" parent="android:Widget.Material.Spinner">
+        <item name="android:popupBackground">@drawable/rounded_10dp_background_light</item>
+        <item name="android:dropDownVerticalOffset">46dp</item>
+    </style>
+
     <style name="LocaleWidget">
         <item name="android:textAppearance">?android:attr/textAppearance</item>
     </style>
