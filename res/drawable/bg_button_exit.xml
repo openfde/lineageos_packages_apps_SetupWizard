@@ -1,31 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_enabled="false">
+
         <shape xmlns:android="http://schemas.android.com/apk/res/android" android:useLevel="false">
             <!--填充色-->
-            <solid android:color="@color/download_button_color"/>
+            <solid android:color="@color/prev_button_disable_color"/>
             <!--圆角-->
-            <corners android:radius="146dp"/>
+            <corners android:bottomRightRadius="@dimen/rounded_corner"/>
         </shape>
 
     </item>
-
     <item android:state_pressed="true">
+
         <shape xmlns:android="http://schemas.android.com/apk/res/android" android:useLevel="false">
             <!--填充色-->
-            <solid android:color="@color/download_button_color"/>
+            <solid android:color="@color/prev_button_pressed_color"/>
             <!--圆角-->
-            <corners android:radius="146dp"/>
+            <corners android:bottomRightRadius="@dimen/rounded_corner"/>
         </shape>
 
     </item>
 
     <item android:state_focused="true">
+
         <shape xmlns:android="http://schemas.android.com/apk/res/android" android:useLevel="false">
             <!--填充色-->
-            <solid android:color="@color/download_button_color"/>
+            <solid android:color="@color/prev_button_color"/>
             <!--圆角-->
-            <corners android:radius="146dp"/>
+            <corners android:bottomRightRadius="@dimen/rounded_corner"/>
         </shape>
 
     </item>
@@ -33,21 +35,21 @@
     <item android:state_hovered="true">
         <shape xmlns:android="http://schemas.android.com/apk/res/android" android:useLevel="false">
             <!--填充色-->
-            <solid android:color="@color/download_button_color"/>
+            <solid android:color="@color/prev_button_hovered_color"/>
             <!--圆角-->
-            <corners android:radius="146dp"/>
+            <corners android:bottomRightRadius="@dimen/rounded_corner"/>
         </shape>
     </item>
 
     <item>
+
         <shape xmlns:android="http://schemas.android.com/apk/res/android" android:useLevel="false">
             <!--填充色-->
-            <solid android:color="@color/download_button_color"/>
+            <solid android:color="@color/prev_button_color"/>
             <!--圆角-->
-            <corners android:radius="146dp"/>
+            <corners android:bottomRightRadius="@dimen/rounded_corner"/>
         </shape>
 
     </item>
-
 
 </selector>

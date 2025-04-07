@@ -20,4 +20,12 @@
     <dimen name="welcome_title_padding_bottom">16dp</dimen>
     <dimen name="welcome_title_line_height">64dp</dimen>
     <dimen name="welcome_accessibility_text_size">20sp</dimen>
+
+
+    <!-- dialog rounded -->
+    <dimen name="rounded_corner">12dp</dimen>
+    <dimen name="rounded_corner_top_left">16dp</dimen>
+    <dimen name="rounded_corner_bottom_right">16dp</dimen>
+    <dimen name="rounded_corner_bottom_left">8dp</dimen>
+    <dimen name="rounded_corner_top_right">8dp</dimen>
 </resources>

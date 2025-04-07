@@ -1,0 +1,17 @@
+<!-- res/drawable/list_item_background.xml -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 选中状态 -->
+    <item android:state_selected="true">
+        <shape>
+            <solid android:color="#1a2783F3" />
+            <corners android:radius="6dp"/>
+        </shape>
+    </item>
+    <!-- 默认状态 -->
+    <item>
+        <shape>
+            <solid android:color="@android:color/transparent" />
+            <corners android:radius="6dp"/>
+        </shape>
+    </item>
+</selector>

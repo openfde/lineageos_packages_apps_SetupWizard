@@ -103,4 +103,8 @@
     <string name="theme_summary">Dark theme uses a black background to help keep battery alive longer on some screens</string>
     <string name="dark">Dark</string>
     <string name="light">Light</string>
+
+    <string name="unfinished_task_message">There are tasks that have not been downloaded completely. Do you want to proceed directly?</string>
+    <string name="exit_install_button_label">Exit Installation</string>
+    <string name="continue_install_button_label">Continue Installation</string>
 </resources>

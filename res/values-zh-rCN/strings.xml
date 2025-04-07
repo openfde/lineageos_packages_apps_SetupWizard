@@ -73,4 +73,8 @@
     <string name="theme_summary">深色模式使用黑色背景来帮助电池在一些场景下提升续航能力</string>
     <string name="dark">深色</string>
     <string name="light">浅色</string>
+
+    <string name="unfinished_task_message">还有任务未下载完成，确定直接进入吗？</string>
+    <string name="exit_install_button_label">退出安装</string>
+    <string name="continue_install_button_label">继续安装</string>
 </resources>

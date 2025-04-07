@@ -38,6 +38,9 @@ import androidx.recyclerview.widget.SimpleItemAnimator;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import android.content.BroadcastReceiver;
+import androidx.appcompat.app.AlertDialog;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 
 import org.lineageos.setupwizard.util.SetupWizardUtils;
 
@@ -139,8 +142,8 @@ public class DownloadAppActivity extends BaseSetupWizardActivity {
         noDownloadingRecyclerView = findViewById(R.id.noDownloadingRecyclerView);
 
         int spanCount = 3;
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(context, spanCount);
-        recyclerView.setLayoutManager(gridLayoutManager);
+        LinearLayoutManager gridLayoutManager = new LinearLayoutManager(context);
+        recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.setAdapter(appAdapter);
 
         downloadingRecyclerView.setLayoutManager(new LinearLayoutManager(context));
@@ -350,6 +353,17 @@ public class DownloadAppActivity extends BaseSetupWizardActivity {
     }
 
     @Override
+    protected void onPreviousPressed(){
+        List<AppDownloadInfo> appDownloadInfoList = Singleton.getInstance().getAppDownloadInfoList();
+        if(appDownloadInfoList != null){
+            for (AppDownloadInfo appDownloadInfo : appDownloadInfoList) {
+                downloadStop(appDownloadInfo.getAppInfo().getName());
+                appDownloadInfo.setSelected(IS_SELECTED);
+            }
+        }
+        finish();
+    }
+    @Override
     protected void onNextPressed() {
         if (DOWNLOAD_STATUS == 0) {
             DOWNLOAD_STATUS = 1;
@@ -359,9 +373,45 @@ public class DownloadAppActivity extends BaseSetupWizardActivity {
             installApp();
             setNextText(R.string.done_button_text);
         } else {
-            SetupWizardUtils.finishSetupWizard(DownloadAppActivity.this);
-            finish();
+            showConfirmationDialog();
         }
+    }
+
+    private void showConfirmationDialog() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.CustomDialog);
+        LayoutInflater inflater = getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.layout_dialog, null);
+
+        TextView downloadTxt = dialogView.findViewById(R.id.tv_download);
+        TextView proceedTxt = dialogView.findViewById(R.id.tv_proceed);
+
+        builder.setView(dialogView);
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+        WindowManager.LayoutParams params = dialog.getWindow().getAttributes();
+        params.width = (int) (getResources().getDisplayMetrics().widthPixels * 0.215);
+        params.gravity = Gravity.CENTER;
+        params.y = 25;
+        dialog.getWindow().setAttributes(params);
+
+        downloadTxt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        proceedTxt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                SetupWizardUtils.finishSetupWizard(DownloadAppActivity.this);
+                finish();
+            }
+        });
+
     }
 
     @Override

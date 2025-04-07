@@ -34,15 +34,18 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.ApplicationHolde
         applicationHolder.applicationIcon.setImageBitmap(appDownloadInfo.getBitmap());
         applicationHolder.applicationName.setText(appDownloadInfo.getAppInfo().getName());
         applicationHolder.checkedIcon.setVisibility(appDownloadInfo.isSelected() ? View.VISIBLE : View.INVISIBLE);
+        applicationHolder.parentView.setSelected(appDownloadInfo.isSelected());
         applicationHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (applicationHolder.checkedIcon.getVisibility() == View.INVISIBLE) {
                     applicationHolder.checkedIcon.setVisibility(View.VISIBLE);
+                    view.setSelected(true);
                     appDownloadInfo.setSelected(true);
                 } else if (applicationHolder.checkedIcon.getVisibility() == View.VISIBLE) {
                     applicationHolder.checkedIcon.setVisibility(View.INVISIBLE);
                     appDownloadInfo.setSelected(false);
+                    view.setSelected(false);
                 } else { // GONE
                 }
                 EventBusUtils.sendButtonTextEvent(new ButtonTextEvent(generateButtonText(context)));
@@ -61,8 +64,11 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.ApplicationHolde
         TextView applicationName;
         ImageView checkedIcon;
 
+        View parentView;
+
         public ApplicationHolder(View view) {
             super(view);
+            parentView = view;
             applicationIcon = view.findViewById(R.id.appIcon);
             applicationName = view.findViewById(R.id.applicationName);
             checkedIcon = view.findViewById(R.id.checked);
