@@ -25,6 +25,7 @@ import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
@@ -47,6 +48,7 @@ public class DateTimeActivity extends BaseSetupWizardActivity implements
     private static final String KEY_ID = "id"; // value: String
     private static final String KEY_DISPLAYNAME = "name"; // value: String
     private static final String KEY_GMT = "gmt"; // value: String
+    private static final String KEY_IMG = "img"; // value: String
     private static final String KEY_OFFSET = "offset"; // value: int (Integer)
 
     private boolean isSpinnerOpen = false;
@@ -71,7 +73,7 @@ public class DateTimeActivity extends BaseSetupWizardActivity implements
         setNextText(R.string.next);
         getGlifLayout().setDescriptionText(getString(R.string.date_time_summary));
         spinner = findViewById(R.id.timezone_list);
-        final SimpleAdapter adapter = constructTimezoneAdapter(this);
+        final CustomSimpleAdapter adapter = constructTimezoneAdapter(this, spinner);
         adapter.setDropDownViewResource(R.layout.date_time_setup_custom_list_item_2_dropdown);
         mCurrentTimeZone = TimeZone.getDefault();
         View dateView = findViewById(R.id.date_text);
@@ -208,19 +210,34 @@ public class DateTimeActivity extends BaseSetupWizardActivity implements
         mDateTextView.setText(shortDateFormat.format(now.getTime()));
     }
 
-    private static SimpleAdapter constructTimezoneAdapter(Context context) {
-        final String[] from = new String[]{KEY_DISPLAYNAME, KEY_GMT};
-        final int[] to = new int[]{android.R.id.text1, android.R.id.text2};
+    private CustomSimpleAdapter constructTimezoneAdapter(Context context, Spinner spinner) {
+        final String[] from = new String[]{KEY_DISPLAYNAME, KEY_GMT, KEY_IMG};
+        final int[] to = new int[]{android.R.id.text1, android.R.id.text2, R.id.iv_selected_indicator};
 
         final TimeZoneComparator comparator = new TimeZoneComparator(KEY_OFFSET);
         final List<Map<String, Object>> sortedList = ZoneGetter.getZonesList(context);
         sortedList.sort(comparator);
 
-        return new SimpleAdapter(context,
+
+        CustomSimpleAdapter adapter = new CustomSimpleAdapter(context,
                 sortedList,
                 R.layout.date_time_setup_custom_list_item_2,
                 from,
-                to);
+                to,
+                spinner);
+        adapter.setViewBinder(new CustomSimpleAdapter.ViewBinder() {
+            @Override
+            public boolean setViewValue(View view, Object data, String textRepresentation) {
+                if (view == null || !(view instanceof ImageView) || view.getId() != R.id.iv_selected_indicator) {
+                    return false;
+                }
+                if (view instanceof ImageView && view.getId() == R.id.iv_selected_indicator) {
+                    return true;
+                }
+                return false;
+            }
+        });
+        return adapter;
     }
 
     private static int getTimeZoneIndex(SimpleAdapter adapter, TimeZone tz) {

@@ -290,15 +290,15 @@ public class CitySettingsActivity extends BaseSetupWizardActivity {
         if (null == popWindow) {
             if (v.getId() == R.id.txtCountry) {
                 if (listCountrys.size() > 10) {
-                    height = 350;
+                    height = 336;
                 }
             } else if (v.getId() == R.id.txtProvince) {
                 if (listProvinces.size() > 10) {
-                    height = 350;
+                    height = 336;
                 }
             } else {
                 if (listCitys.size() > 10) {
-                    height = 350;
+                    height = 336;
                 }
             }
             popWindow = new PopupWindow(view,
