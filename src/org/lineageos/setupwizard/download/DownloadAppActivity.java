@@ -26,6 +26,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Button;
 import android.content.ServiceConnection;
 import android.content.ComponentName;
 import android.widget.Toast;
@@ -373,7 +374,12 @@ public class DownloadAppActivity extends BaseSetupWizardActivity {
             installApp();
             setNextText(R.string.done_button_text);
         } else {
-            showConfirmationDialog();
+            if (singleton.isNothingDownload()) {
+                SetupWizardUtils.finishSetupWizard(DownloadAppActivity.this);
+                finish();
+            }else {
+                showConfirmationDialog();
+            }
         }
     }
 
@@ -383,8 +389,8 @@ public class DownloadAppActivity extends BaseSetupWizardActivity {
         LayoutInflater inflater = getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.layout_dialog, null);
 
-        TextView downloadTxt = dialogView.findViewById(R.id.tv_download);
-        TextView proceedTxt = dialogView.findViewById(R.id.tv_proceed);
+        Button downloadBtn = dialogView.findViewById(R.id.tv_download);
+        Button proceedBtn = dialogView.findViewById(R.id.tv_proceed);
 
         builder.setView(dialogView);
         AlertDialog dialog = builder.create();
@@ -396,14 +402,14 @@ public class DownloadAppActivity extends BaseSetupWizardActivity {
         params.y = 25;
         dialog.getWindow().setAttributes(params);
 
-        downloadTxt.setOnClickListener(new View.OnClickListener() {
+        downloadBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
             }
         });
 
-        proceedTxt.setOnClickListener(new View.OnClickListener() {
+        proceedBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();

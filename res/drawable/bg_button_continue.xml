@@ -6,7 +6,7 @@
             <!--填充色-->
             <solid android:color="@color/next_button_disable_color" />
             <!--圆角-->
-            <corners android:bottomLeftRadius="@dimen/rounded_corner" />
+            <corners android:radius="@dimen/button_rounded_corner" />
 
         </shape>
 
@@ -17,7 +17,7 @@
             <!--填充色-->
             <solid android:color="@color/next_button_pressed_color" />
             <!--圆角-->
-            <corners android:bottomLeftRadius="@dimen/rounded_corner" />
+            <corners android:radius="@dimen/button_rounded_corner" />
         </shape>
 
     </item>
@@ -28,7 +28,7 @@
             <!--填充色-->
             <solid android:color="@color/next_button_color" />
             <!--圆角-->
-            <corners android:bottomLeftRadius="@dimen/rounded_corner" />
+            <corners android:radius="@dimen/button_rounded_corner" />
         </shape>
 
     </item>
@@ -38,7 +38,7 @@
             <!--填充色-->
             <solid android:color="@color/next_button_hovered_color" />
             <!--圆角-->
-            <corners android:bottomLeftRadius="@dimen/rounded_corner" />
+            <corners android:radius="@dimen/button_rounded_corner" />
         </shape>
     </item>
 
@@ -48,7 +48,7 @@
             <!--填充色-->
             <solid android:color="@color/next_button_color" />
             <!--圆角-->
-            <corners android:bottomLeftRadius="@dimen/rounded_corner" />
+            <corners android:radius="@dimen/button_rounded_corner" />
         </shape>
 
     </item>

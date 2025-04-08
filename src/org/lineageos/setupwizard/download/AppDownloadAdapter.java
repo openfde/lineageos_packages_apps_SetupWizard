@@ -57,7 +57,7 @@ public class AppDownloadAdapter extends RecyclerView.Adapter<AppDownloadAdapter.
         holder.appIcon.setImageBitmap(bitmap);
 
         holder.appProgressBar.setProgress(progress);
-        holder.appProgressBar.setProgressTintList(ColorStateList.valueOf(Color.BLUE));
+        //holder.appProgressBar.setProgressTintList(ColorStateList.valueOf(R.color.progressbar_completion_color));
         holder.stopBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,7 +74,7 @@ public class AppDownloadAdapter extends RecyclerView.Adapter<AppDownloadAdapter.
         } else if (eventType == EventType.DOWNLOAD_IN_PROGRESS) {
             holder.stopBtn.setClickable(CLICKABLE);
             holder.stopBtn.setText(R.string.cancel);
-            holder.appProgressBar.setProgressTintList(ColorStateList.valueOf(Color.BLUE));
+            //holder.appProgressBar.setProgressTintList(ColorStateList.valueOf(R.color.progressbar_completion_color));
             holder.stopBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

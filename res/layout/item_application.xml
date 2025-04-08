@@ -11,15 +11,27 @@
         android:layout_width="372dp"
         android:layout_height="match_parent"
         android:background="@drawable/app_list_item_background"
-
         android:layout_centerHorizontal="true">
-        <ImageView
-            android:id="@+id/appIcon"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/appIconCardView"
             android:layout_width="34dp"
             android:layout_height="34dp"
-            android:layout_centerVertical="true"
             android:layout_marginStart="7dp"
-            android:scaleType="fitCenter"/>
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="2dp"
+            android:gravity="center"
+            android:layout_centerVertical="true">
+
+            <ImageView
+                android:id="@+id/appIcon"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
+                android:gravity="center"
+                android:layout_centerInParent="true"
+                android:scaleType="fitCenter"/>
+        </androidx.cardview.widget.CardView>
+
 
         <ImageView
             android:id="@+id/checked"
@@ -35,7 +47,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/appIcon"
+            android:layout_toRightOf="@+id/appIconCardView"
             android:layout_marginLeft="8dp"
             android:ellipsize="end"
             android:gravity="center"

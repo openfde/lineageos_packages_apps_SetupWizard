@@ -6,8 +6,8 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/appIconCardView"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
         android:layout_marginStart="21dp"
         app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="10dp"
@@ -27,37 +27,43 @@
     <TextView
         android:id="@+id/appName"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_height="22dp"
         android:text="GenshiImage"
         android:textSize="16sp"
         android:textColor="@color/dark_gray"
         app:layout_constraintBottom_toTopOf="@id/appProgressBar"
         app:layout_constraintStart_toStartOf="@id/appProgressBar"
-        app:layout_constraintTop_toTopOf="@id/appIconCardView" />
+        app:layout_constraintTop_toTopOf="@id/appIconCardView"
+        app:layout_constraintVertical_bias="0.0"/>
 
     <ProgressBar
         android:id="@+id/appProgressBar"
         style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-        android:layout_width="240dp"
+        android:progressDrawable="@drawable/progress_bar_rounded"
+        android:layout_width="0dp"
         android:layout_height="4dp"
-        android:layout_marginHorizontal="10dp"
-        android:layout_marginTop="18dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginTop="20dp"
         android:max="100"
         android:progress="90"
         app:layout_constraintBottom_toBottomOf="@id/appIconCardView"
         app:layout_constraintEnd_toStartOf="@id/stopBtn"
+        app:layout_constraintHorizontal_bias="0.465"
         app:layout_constraintStart_toEndOf="@id/appIconCardView"
-        app:layout_constraintTop_toTopOf="@id/appIconCardView" />
+        app:layout_constraintTop_toTopOf="@id/appIconCardView"
+        app:layout_constraintVertical_bias="0.8"/>
 
     <Button
         android:id="@+id/stopBtn"
-        android:layout_width="64dp"
+        android:layout_width="74dp"
         android:layout_height="28dp"
         android:layout_marginVertical="2dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginRight="20dp"
+        android:layout_marginRight="22dp"
         android:background="@drawable/bg_download_button"
         android:text="@string/cancel"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@id/appIconCardView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/appIconCardView" />

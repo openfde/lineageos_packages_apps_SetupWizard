@@ -1,81 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:paddingTop="10dp">
-
+    android:background="@drawable/rounded_12dp_background_light">
 
     <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:id="@+id/scroll_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_centerHorizontal="true"
         android:overScrollMode="never">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingTop="18dp"
-            android:paddingBottom="18dp">
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/tv_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:paddingStart="15dp"
-                android:paddingEnd="15dp"
-                android:paddingBottom="5dp"
                 android:text="@string/unfinished_task_message"
-                android:textColor="@color/_xpopup_content_color"
+                android:textColor="#d9000000"
+                android:textStyle="bold"
                 android:textSize="16sp" />
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
-    <View
-        android:id="@+id/divider1"
-        android:layout_width="match_parent"
-        android:layout_height=".5dp"
-        android:background="@color/_xpopup_list_divider" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:gravity="end"
-        android:orientation="horizontal">
-
-        <TextView
+        <android.widget.Button
             android:id="@+id/tv_download"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_width="84dp"
+            android:layout_height="32dp"
             android:background="@drawable/bg_button_continue"
-
             android:gravity="center"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
             android:text="@string/continue_install_button_label"
-            android:textColor="#666666"
-            android:textSize="16sp" />
+            android:layout_toLeftOf="@+id/tv_proceed"
+            android:layout_alignTop="@+id/tv_proceed"
+            android:layout_marginRight="12dp"
+            android:textColor="#d9000000"
+            android:textSize="14sp" />
 
-        <View
-            android:id="@+id/divider2"
-            android:layout_width=".5dp"
-            android:layout_height="match_parent"
-            android:background="@color/_xpopup_list_divider" />
-
-        <TextView
+        <android.widget.Button
             android:id="@+id/tv_proceed"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_width="84dp"
+            android:layout_height="32dp"
+            android:layout_marginTop="28dp"
+            android:layout_below="@+id/scroll_content"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="24dp"
+            android:layout_alignParentRight="true"
             android:background="@drawable/bg_button_exit"
             android:gravity="center"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
             android:text="@string/exit_install_button_label"
-            android:textSize="16sp" />
-    </LinearLayout>
-</LinearLayout>
+            android:textColor="#e6FFFFFF"
+            android:textSize="14sp" />
+
+</RelativeLayout>

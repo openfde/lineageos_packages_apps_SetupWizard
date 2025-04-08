@@ -35,10 +35,11 @@
             android:text="@string/previous"/>
         <android.widget.Button
             android:id="@+id/navbar_next"
-            android:layout_width="96dp"
+            android:layout_width="wrap_content"
             android:layout_height="32dp"
             android:background="@drawable/button_rounded_background_blue"
             android:textColor="@color/white"
+            android:paddingHorizontal="27dp"
             android:gravity="center"
             android:textSize="14sp"
             android:text="@string/next"/>
