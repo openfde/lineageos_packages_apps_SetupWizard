@@ -22,6 +22,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.NumberPicker;
 import android.widget.Toast;
+import android.content.res.Configuration;
 
 import com.android.internal.telephony.TelephonyIntents;
 import com.android.internal.telephony.util.LocaleUtils;
@@ -40,6 +41,7 @@ public class LocaleActivity extends BaseSetupWizardActivity {
 
     private static final String TAG = LocaleActivity.class.getSimpleName();
 
+    private static boolean firstLaunch = true;
     private ArrayAdapter<com.android.internal.app.LocalePicker.LocaleInfo> mLocaleAdapter;
     private Locale mCurrentLocale;
     private int[] mAdapterIndices;
@@ -69,6 +71,10 @@ public class LocaleActivity extends BaseSetupWizardActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if(firstLaunch){
+            firstLaunch = false;
+            setLocale(Locale.SIMPLIFIED_CHINESE);
+        }
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate savedInstanceState=" + savedInstanceState);
         new Thread(new Runnable() {
@@ -87,6 +93,13 @@ public class LocaleActivity extends BaseSetupWizardActivity {
         }
         loadLanguages();
         hidePreviousButton();
+    }
+
+    private void setLocale(Locale locale) {
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        getResources().updateConfiguration(config, getResources().getDisplayMetrics());
     }
 
     @Override

@@ -37,6 +37,7 @@ import org.lineageos.setupwizard.util.SetupWizardUtils;
 import java.util.Calendar;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
 import android.util.Log;
@@ -45,6 +46,8 @@ import android.view.MotionEvent;
 public class DateTimeActivity extends BaseSetupWizardActivity implements
         TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener {
     private static final String TAG = DateTimeActivity.class.getSimpleName();
+
+    private static boolean firstLaunch = true;
     private static final String KEY_ID = "id"; // value: String
     private static final String KEY_DISPLAYNAME = "name"; // value: String
     private static final String KEY_GMT = "gmt"; // value: String
@@ -68,6 +71,12 @@ public class DateTimeActivity extends BaseSetupWizardActivity implements
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if(firstLaunch){
+            firstLaunch = false;
+            final AlarmManager alarm =
+                    (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+            alarm.setTimeZone("Asia/Shanghai");
+        }
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate savedInstanceState=" + savedInstanceState);
         setNextText(R.string.next);
