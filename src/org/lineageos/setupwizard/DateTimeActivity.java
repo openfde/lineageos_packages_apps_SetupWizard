@@ -86,9 +86,9 @@ public class DateTimeActivity extends BaseSetupWizardActivity implements
         adapter.setDropDownViewResource(R.layout.date_time_setup_custom_list_item_2_dropdown);
         mCurrentTimeZone = TimeZone.getDefault();
         View dateView = findViewById(R.id.date_text);
-        dateView.setOnClickListener((view) -> showDatePicker());
+        //dateView.setOnClickListener((view) -> showDatePicker());
         View timeView = findViewById(R.id.time_text);
-        timeView.setOnClickListener((view) -> showTimePicker());
+        //timeView.setOnClickListener((view) -> showTimePicker());
         mDateTextView = findViewById(R.id.date_text);
         mTimeTextView = findViewById(R.id.time_text);
         // Pre-select current/default timezone
