@@ -43,4 +43,6 @@
     <color name="prev_button_disable_color">#B3909399</color>
     <color name="prev_button_pressed_color">#ff318BF3</color>
     <color name="prev_button_hovered_color">#66B1FF</color>
+
+    <color name="connected_state_color">#ff999999</color>
 </resources>

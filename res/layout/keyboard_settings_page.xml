@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     SPDX-FileCopyrightText: 2015 The CyanogenMod Project
+     SPDX-FileCopyrightText: 2017-2024 The LineageOS Project
+     SPDX-License-Identifier: Apache-2.0
+-->
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="900dp"
+        android:layout_height="780dp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/rounded_background">
+        <ImageView
+            android:layout_marginTop="61dp"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_city_settings"/>
+        <TextView
+            android:layout_marginTop="200dp"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="@string/setup_keyboard"
+            android:textColor="#ff262626"
+            android:textSize="32sp"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"/>
+
+        <RelativeLayout
+            android:layout_width="400dp"
+            android:layout_height="388dp"
+            android:layout_marginTop="285dp"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/rounded_background_light">
+            <com.android.internal.widget.RecyclerView
+                android:id="@+id/keyboard_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </RelativeLayout>
+
+        <org.lineageos.setupwizard.NavigationLayout
+            android:id="@+id/navigation_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"/>
+    </RelativeLayout>
+<com.google.android.setupdesign.GlifLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/setup_wizard_layout"
+    android:visibility="gone"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+</com.google.android.setupdesign.GlifLayout>
+    </RelativeLayout>

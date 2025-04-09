@@ -107,4 +107,6 @@
     <string name="unfinished_task_message">There are tasks that have not been downloaded completely. Do you want to proceed directly?</string>
     <string name="exit_install_button_label">sure</string>
     <string name="continue_install_button_label">Cancel</string>
+
+    <string name="setup_keyboard">Select Keyboard</string>
 </resources>
