@@ -19,7 +19,7 @@
             android:layout_centerHorizontal="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/icon_city_settings"/>
+            android:src="@drawable/icon_keyboard"/>
         <TextView
             android:layout_marginTop="200dp"
             android:layout_centerHorizontal="true"

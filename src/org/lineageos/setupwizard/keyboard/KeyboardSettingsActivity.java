@@ -330,6 +330,6 @@ public class KeyboardSettingsActivity extends BaseSetupWizardActivity {
 
     @Override
     protected int getIconResId() {
-        return R.drawable.ic_location;
+        return R.drawable.icon_keyboard;
     }
 }
