@@ -15,7 +15,7 @@ import okhttp3.Response;
 public class HttpUtils {
     private static final String TAG = "HttpUtils";
     //
-    public static String APP_INFO_URL = "https://gitee.com/openfde/provision/releases/download/1.3.2/apps.json";
+    public static String APP_INFO_URL = "https://gitee.com/openfde/provision/releases/download/14_2.0.1/apps.json";
 
     private static final OkHttpClient client;
 
