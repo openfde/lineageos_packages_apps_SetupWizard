@@ -214,7 +214,9 @@ public class DownloadAppActivity extends BaseSetupWizardActivity {
                         }
                         List<AppDownloadInfo> appDownloadInfoList = new ArrayList<>();
                         for (AppInfo appInfo : appInfoList) {
-                            appDownloadInfoList.add(new AppDownloadInfo(appInfo, IS_SELECTED, SetupWizardUtils.base64ToBitmap(appInfo.getIconString())));
+                            if(appInfo.isAvailable()) {
+                                appDownloadInfoList.add(new AppDownloadInfo(appInfo, IS_SELECTED, SetupWizardUtils.base64ToBitmap(appInfo.getIconString())));
+                            }
                         }
                         singleton.setAppDownloadInfoList(appDownloadInfoList);
                         singleton.setRequestStatus(RequestStatus.REQUEST_SUCCESS);
@@ -355,14 +357,11 @@ public class DownloadAppActivity extends BaseSetupWizardActivity {
 
     @Override
     protected void onPreviousPressed(){
-        List<AppDownloadInfo> appDownloadInfoList = Singleton.getInstance().getAppDownloadInfoList();
-        if(appDownloadInfoList != null){
-            for (AppDownloadInfo appDownloadInfo : appDownloadInfoList) {
-                downloadStop(appDownloadInfo.getAppInfo().getName());
-                appDownloadInfo.setSelected(IS_SELECTED);
-            }
+        if (singleton.isNothingDownload()) {
+            finish();
+        }else {
+            showPreviousConfirmationDialog();
         }
-        finish();
     }
     @Override
     protected void onNextPressed() {
@@ -378,12 +377,12 @@ public class DownloadAppActivity extends BaseSetupWizardActivity {
                 SetupWizardUtils.finishSetupWizard(DownloadAppActivity.this);
                 finish();
             }else {
-                showConfirmationDialog();
+                showExitConfirmationDialog();
             }
         }
     }
 
-    private void showConfirmationDialog() {
+    private void showExitConfirmationDialog() {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.CustomDialog);
         LayoutInflater inflater = getLayoutInflater();
@@ -414,6 +413,49 @@ public class DownloadAppActivity extends BaseSetupWizardActivity {
             public void onClick(View v) {
                 dialog.dismiss();
                 SetupWizardUtils.finishSetupWizard(DownloadAppActivity.this);
+                finish();
+            }
+        });
+
+    }
+
+    private void showPreviousConfirmationDialog() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.CustomDialog);
+        LayoutInflater inflater = getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.layout_dialog_previous, null);
+
+        Button downloadBtn = dialogView.findViewById(R.id.tv_download);
+        Button proceedBtn = dialogView.findViewById(R.id.tv_proceed);
+
+        builder.setView(dialogView);
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+        WindowManager.LayoutParams params = dialog.getWindow().getAttributes();
+        params.width = (int) (getResources().getDisplayMetrics().widthPixels * 0.215);
+        params.gravity = Gravity.CENTER;
+        params.y = 25;
+        dialog.getWindow().setAttributes(params);
+
+        downloadBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        proceedBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                List<AppDownloadInfo> appDownloadInfoList = Singleton.getInstance().getAppDownloadInfoList();
+                if(appDownloadInfoList != null){
+                    for (AppDownloadInfo appDownloadInfo : appDownloadInfoList) {
+                        downloadStop(appDownloadInfo.getAppInfo().getName());
+                        appDownloadInfo.setSelected(IS_SELECTED);
+                    }
+                }
                 finish();
             }
         });

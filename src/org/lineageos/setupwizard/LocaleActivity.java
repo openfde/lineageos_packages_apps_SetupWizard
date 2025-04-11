@@ -71,10 +71,7 @@ public class LocaleActivity extends BaseSetupWizardActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        if(firstLaunch){
-            firstLaunch = false;
-            setLocale(Locale.SIMPLIFIED_CHINESE);
-        }
+
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate savedInstanceState=" + savedInstanceState);
         new Thread(new Runnable() {
@@ -93,9 +90,15 @@ public class LocaleActivity extends BaseSetupWizardActivity {
         }
         loadLanguages();
         hidePreviousButton();
+
+        if(firstLaunch){
+            firstLaunch = false;
+            setLocale(Locale.SIMPLIFIED_CHINESE);
+        }
     }
 
     private void setLocale(Locale locale) {
+        onLocaleChanged(locale);
         Locale.setDefault(locale);
         Configuration config = new Configuration();
         config.locale = locale;

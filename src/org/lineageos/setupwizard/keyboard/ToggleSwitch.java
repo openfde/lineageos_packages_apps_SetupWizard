@@ -3,8 +3,9 @@ package org.lineageos.setupwizard.keyboard;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.Switch;
+import android.widget.CheckBox;
 
-public class ToggleSwitch extends Switch {
+public class ToggleSwitch extends CheckBox {
 
     private OnBeforeCheckedChangeListener mOnBeforeListener;
 

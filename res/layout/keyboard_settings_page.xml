@@ -38,6 +38,7 @@
             android:background="@drawable/rounded_background_light">
             <com.android.internal.widget.RecyclerView
                 android:id="@+id/keyboard_recycler_view"
+                android:layout_marginHorizontal="14dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
         </RelativeLayout>

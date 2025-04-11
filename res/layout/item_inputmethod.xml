@@ -1,37 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="60dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="372dp"
+    android:layout_height="56dp"
     android:background="?android:attr/selectableItemBackground">
 
-
-    <ImageView
-        android:id="@+id/icon"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_marginLeft="16dp"
-        android:layout_centerVertical="true"
-        />
+    <androidx.cardview.widget.CardView
+        android:id="@+id/appIconCardView"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_marginStart="7dp"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="2dp"
+        android:gravity="center"
+        android:layout_centerVertical="true">
+        <ImageView
+            android:id="@+id/icon"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:scaleType="fitCenter"
+            />
+    </androidx.cardview.widget.CardView>
 
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:layout_toRightOf="@id/icon"
-        android:layout_marginLeft="16dp"
+        android:layout_toRightOf="@id/appIconCardView"
+        android:layout_marginLeft="6dp"
         android:layout_centerVertical="true"
         android:textSize="16sp"
-        android:textColor="@color/black"
+        android:textColor="@color/dark_gray"
         />
 
     <org.lineageos.setupwizard.keyboard.ToggleSwitch
         android:id="@+id/switch_toggle"
-        android:layout_width="46dp"
+        android:layout_width="42dp"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="16dp"
+        android:layout_marginRight="8dp"
         android:layout_centerVertical="true"
-        android:layout_height="27dp"/>
+        android:background="@drawable/switch_selector"
+        android:button="@null"
+        android:layout_height="22dp"/>
 
 
 
