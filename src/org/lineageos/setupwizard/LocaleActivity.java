@@ -98,7 +98,10 @@ public class LocaleActivity extends BaseSetupWizardActivity {
     }
 
     private void setLocale(Locale locale) {
-        onLocaleChanged(locale);
+        mLanguagePicker.setEnabled(true);
+        mHandler.removeCallbacks(mUpdateLocale);
+        mCurrentLocale = locale;
+        mHandler.postDelayed(mUpdateLocale, 50);
         Locale.setDefault(locale);
         Configuration config = new Configuration();
         config.locale = locale;
