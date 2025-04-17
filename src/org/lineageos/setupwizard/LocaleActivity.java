@@ -88,13 +88,12 @@ public class LocaleActivity extends BaseSetupWizardActivity {
         if (getResources().getBoolean(R.bool.config_isLargeNoTouch)) {
             mLanguagePicker.setOnClickListener((View v) -> getNextButton().performClick());
         }
-        loadLanguages();
-        hidePreviousButton();
-
         if(firstLaunch){
             firstLaunch = false;
             setLocale(Locale.SIMPLIFIED_CHINESE);
         }
+        loadLanguages();
+        hidePreviousButton();
     }
 
     private void setLocale(Locale locale) {
