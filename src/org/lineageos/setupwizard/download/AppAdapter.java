@@ -14,7 +14,7 @@ import java.util.List;
 
 import org.lineageos.setupwizard.R;
 import org.lineageos.setupwizard.util.SetupWizardUtils;
-
+import android.util.Log;
 
 public class AppAdapter extends RecyclerView.Adapter<AppAdapter.ApplicationHolder> {
 
@@ -40,7 +40,7 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.ApplicationHolde
         applicationHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                boolean hasYybApp = SetupWizardUtils.isAssetHasApp(context,context.getString(R.string.yyb));
+                boolean hasYybApp = SetupWizardUtils.isAssetHasApp(context,"download.apk");
                 if(hasYybApp && context.getString(R.string.yyb).equals(appDownloadInfo.getAppInfo().getName())) {
                     return;
                 }

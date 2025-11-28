@@ -63,7 +63,7 @@ public class DownloadService extends Service {
         }
         String yybAppName = context.getString(R.string.yyb);
         if(yybAppName.equals(appName)) {
-            if(copyApkToDownloads(this, "yyb.apk", yybAppName+".apk") != null){
+            if(copyApkToDownloads(this, "download.apk", yybAppName+".apk") != null){
                 EventBus.getDefault().post(new Event(EventType.DOWNLOAD_IN_PROGRESS, appName, 100));
                 String apkName = appName + ".apk";
                 File downloadDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
