@@ -1,1 +1,1 @@
-Copy the app treasure to assets directory and name it yyb.apk
+Copy the app treasure to assets directory and name it download.apk

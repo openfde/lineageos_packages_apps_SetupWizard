@@ -170,6 +170,12 @@ public class KeyboardSettingsActivity extends BaseSetupWizardActivity {
                     });
                 }
 
+                if(getString(R.string.iflytek).equals(label.toString())) {
+                    holder.toggleSwitch.setEnabled(false);
+                    holder.itemView.setClickable(false);
+                    updateInputMethodEnable(inputMethodInfo, true);
+                    holder.toggleSwitch.setChecked(true);
+                } 
             }
 
             @Override
