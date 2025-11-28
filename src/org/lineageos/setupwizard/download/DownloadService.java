@@ -20,10 +20,11 @@ import java.util.Map;
 import okhttp3.Call;
 import okhttp3.Response;
 import org.lineageos.setupwizard.util.SetupWizardUtils;
-
+import android.content.Context;
+import org.lineageos.setupwizard.R;
 public class DownloadService extends Service {
 
-    private final String TAG = "DownloadService";
+    private static final String TAG = "DownloadService";
     private static final String SOCKET_CLOSED_ERROR_1 = "Socket is closed";
     private static final String SOCKET_CLOSED_ERROR_2 = "Socket Closed";
     private static final String CANCEL_ERROR = "cancel";
@@ -31,6 +32,7 @@ public class DownloadService extends Service {
     private final Long DEFAULT_BYTE_SIZE = (long) 1 * 1024 * 1024;
     private DownloadBinder downloadBinder;
     private Map<String, Call> callMap;
+    Context context ;
 
     // Binder for binding the service to a client component.
     public class DownloadBinder extends Binder {
@@ -55,8 +57,27 @@ public class DownloadService extends Service {
 
     // Initiates APK download and registers a callback for handling the response.
     public void downloadApk(String url, String appName, long size, String md5Checksum) {
+        Log.w(TAG, "downloadApk url " + url + ", appName " + appName + ", size " + size + ", md5Checksum " + md5Checksum);
         if (callMap.containsKey(appName)) {
             return;
+        }
+        String yybAppName = context.getString(R.string.yyb);
+        if(yybAppName.equals(appName)) {
+            if(copyApkToDownloads(this, "yyb.apk", yybAppName+".apk") != null){
+                EventBus.getDefault().post(new Event(EventType.DOWNLOAD_IN_PROGRESS, appName, 100));
+                String apkName = appName + ".apk";
+                File downloadDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+                File file = new File(downloadDir, apkName);
+                EventBus.getDefault().post(new Event(EventType.DOWNLOAD_COMPLETED, appName));
+                new Thread() {
+                    @Override
+                    public void run() {
+                        ApkSilentInstaller.enqueueInstall(appName, file.getAbsolutePath(), DownloadService.this);
+                    }
+                }.start();
+                return ;
+            }
+           
         }
         Call call = HttpUtils.get(url, new HttpUtils.HttpCallback() {
             @Override
@@ -148,6 +169,7 @@ public class DownloadService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
+        context = this;
         downloadBinder = new DownloadBinder();
         callMap = new HashMap<>();
     }
@@ -169,5 +191,44 @@ public class DownloadService extends Service {
     @Override
     public IBinder onBind(Intent intent) {
         return downloadBinder;
+    }
+
+
+     public static String copyApkToDownloads(Context context, String assetFileName, String destinationFileName) {
+        File downloadDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+        if (!downloadDir.exists()) {
+            if (!downloadDir.mkdirs()) {
+                Log.e(TAG, "Download directory creation failed: " + downloadDir.getAbsolutePath());
+            }
+        }
+        
+        File outputFile = new File(downloadDir, destinationFileName);
+        InputStream inputStream = null;
+        FileOutputStream outputStream = null;
+        
+        try {
+            inputStream = context.getAssets().open(assetFileName);
+            outputStream = new FileOutputStream(outputFile);
+            
+            byte[] buffer = new byte[1024];
+            int length;
+            while ((length = inputStream.read(buffer)) > 0) {
+                outputStream.write(buffer, 0, length);
+            }
+            
+            Log.i(TAG, "APK copied successfully to: " + outputFile.getAbsolutePath());
+            return outputFile.getAbsolutePath();
+            
+        } catch (Exception e) {
+            Log.e(TAG, "Failed to copy APK from assets to Downloads", e);
+            return null;
+        } finally {
+            try {
+                if (inputStream != null) inputStream.close();
+                if (outputStream != null) outputStream.close();
+            } catch (IOException e) {
+                Log.e(TAG, "Error closing streams", e);
+            }
+        }
     }
 }

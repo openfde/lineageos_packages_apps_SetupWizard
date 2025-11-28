@@ -638,4 +638,23 @@ public class SetupWizardUtils {
         }
     }
 
+    public static boolean isAssetHasApp(Context context, String assetFileName) {
+        boolean hasApp = false;
+        InputStream inputStream = null ;
+        try{
+            inputStream = context.getAssets().open(assetFileName);
+            hasApp = true;
+        }catch(Exception e){
+            e.printStackTrace();
+            hasApp = false;
+        }finally {
+            try {
+                if (inputStream != null) inputStream.close();
+            } catch (IOException e) {
+                Log.e(TAG, "Error closing streams", e);
+            }
+        }
+        return hasApp;
+    }
+
 }

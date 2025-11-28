@@ -40,7 +40,7 @@
     <string name="location_agps_access_summary">当位置信息开启时，<b>将会从互联网下载卫星辅助数据</b>，这将大幅提升 GPS 的启动性能。</string>
 
     <!-- download app page -->
-    <string name="download_app">选装应用</string>
+    <string name="download_app">初装应用</string>
     <string name="download">下载</string>
     <string name="cancel">取消</string>
     <string name="start_download">开始下载</string>
