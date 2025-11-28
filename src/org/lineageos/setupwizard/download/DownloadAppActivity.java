@@ -85,7 +85,6 @@ public class DownloadAppActivity extends BaseSetupWizardActivity {
     private ServiceConnection connection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
-            Log.w(TAG, "onServiceConnected.......... ");
             if (service instanceof DownloadService.DownloadBinder) {
                 downloadService = ((DownloadService.DownloadBinder) service).getService();
             }
@@ -93,7 +92,6 @@ public class DownloadAppActivity extends BaseSetupWizardActivity {
 
         @Override
         public void onServiceDisconnected(ComponentName name) {
-            Log.w(TAG, "onServiceConnected.......... ");
         }
     };
 
@@ -188,68 +186,92 @@ public class DownloadAppActivity extends BaseSetupWizardActivity {
     }
 
     private void getAppInfoList() {
-        if (!singleton.hasNetworkRequestSucceeded()) {
-            HttpUtils.get(HttpUtils.APP_INFO_URL, new HttpUtils.HttpCallback() {
-                @Override
-                public void onResponse(okhttp3.Response response) {
-                    try {
-                        String jsonResponse = response.body().string();
-                        JSONArray jsonArray = new JSONArray(jsonResponse);
-                        List<AppInfo> appInfoList = new ArrayList<>();
-                        for (int i = 0; i < jsonArray.length(); i++) {
-                            JSONObject jsonObject = jsonArray.getJSONObject(i);
+        Log.w(TAG, "getAppInfoList.......... ");
+        if(SetupWizardUtils.isNetworkAvailable(this)) {
+            if (!singleton.hasNetworkRequestSucceeded()) {
+                HttpUtils.get(HttpUtils.APP_INFO_URL, new HttpUtils.HttpCallback() {
+                    @Override
+                    public void onResponse(okhttp3.Response response) {
+                        try {
+                            String jsonResponse = response.body().string();
+                            JSONArray jsonArray = new JSONArray(jsonResponse);
+                            List<AppInfo> appInfoList = new ArrayList<>();
+                            for (int i = 0; i < jsonArray.length(); i++) {
+                                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                                AppInfo appInfo = new AppInfo();
+                                appInfo.setPrimaryUrl(jsonObject.getString("primaryUrl"));
+                                appInfo.setName(jsonObject.getString("name"));
+                                appInfo.setIconString(jsonObject.getString("iconString"));
+                                appInfo.setAvailable(SetupWizardUtils.ToBoolean(jsonObject.getString("isAvailable")));
+                                appInfo.setBackupMd5Checksum("");
+                                appInfo.setBackupSize(1);
+                                appInfo.setBackupUrl("");
+                                appInfo.setPrimaryMd5Checksum("");
+                                appInfo.setPrimarySize(1);
 
-                            AppInfo appInfo = new AppInfo();
-                            appInfo.setPrimaryUrl(jsonObject.getString("primaryUrl"));
-                            appInfo.setName(jsonObject.getString("name"));
-                            appInfo.setIconString(jsonObject.getString("iconString"));
-                            appInfo.setAvailable(SetupWizardUtils.ToBoolean(jsonObject.getString("isAvailable")));
-                            appInfo.setBackupMd5Checksum("");
-                            appInfo.setBackupSize(1);
-                            appInfo.setBackupUrl("");
-                            appInfo.setPrimaryMd5Checksum("");
-                            appInfo.setPrimarySize(1);
-
-                            appInfoList.add(appInfo);
-                        }
-                        List<AppDownloadInfo> appDownloadInfoList = new ArrayList<>();
-                        for (AppInfo appInfo : appInfoList) {
-                            if(appInfo.isAvailable()) {
-                                appDownloadInfoList.add(new AppDownloadInfo(appInfo, IS_SELECTED, SetupWizardUtils.base64ToBitmap(appInfo.getIconString())));
+                                appInfoList.add(appInfo);
                             }
-                        }
-                        singleton.setAppDownloadInfoList(appDownloadInfoList);
-                        singleton.setRequestStatus(RequestStatus.REQUEST_SUCCESS);
-                        if (appDownloadInfoList != null) {
-                            Log.w(TAG, "appDownloadInfoList size " + appDownloadInfoList.size());
-                        } else {
-                            Log.w(TAG, "appDownloadInfoList is empty ");
-                        }
+                            List<AppDownloadInfo> appDownloadInfoList = new ArrayList<>();
+                            for (AppInfo appInfo : appInfoList) {
+                                if(appInfo.isAvailable()) {
+                                    appDownloadInfoList.add(new AppDownloadInfo(appInfo, IS_SELECTED, SetupWizardUtils.base64ToBitmap(appInfo.getIconString())));
+                                }
+                            }
+                            singleton.setAppDownloadInfoList(appDownloadInfoList);
+                            singleton.setRequestStatus(RequestStatus.REQUEST_SUCCESS);
+                            if (appDownloadInfoList != null) {
+                                Log.w(TAG, "appDownloadInfoList size " + appDownloadInfoList.size());
+                            } else {
+                                Log.w(TAG, "appDownloadInfoList is empty ");
+                            }
 
-                        handler.sendMessage(handler.obtainMessage(SUCCESS));
-                        // EventBusUtils.sendButtonTextEvent(new ButtonTextEvent(getString(R.string.start_download)));
-                    } catch (Exception e) {
-                        singleton.setRequestStatus(RequestStatus.REQUEST_FAILED);
-                        Log.e(TAG, "http onResponse exception = " + e.getMessage());
+                            handler.sendMessage(handler.obtainMessage(SUCCESS));
+                            // EventBusUtils.sendButtonTextEvent(new ButtonTextEvent(getString(R.string.start_download)));
+                        } catch (Exception e) {
+                            singleton.setRequestStatus(RequestStatus.REQUEST_FAILED);
+                            Log.e(TAG, "http onResponse exception = " + e.getMessage());
+                        }
                     }
-                }
 
-                @Override
-                public void onFailure(Exception e) {
-                    Log.e(TAG, "http failure exception = " + e.getMessage());
-                    handler.sendMessage(handler.obtainMessage(FAILURE));
-                    // EventBusUtils.sendButtonTextEvent(new ButtonTextEvent(getString(R.string.done_button_text)));
-                }
+                    @Override
+                    public void onFailure(Exception e) {
+                        Log.e(TAG, "http failure exception = " + e.getMessage());
+                        handler.sendMessage(handler.obtainMessage(FAILURE));
+                        // EventBusUtils.sendButtonTextEvent(new ButtonTextEvent(getString(R.string.done_button_text)));
+                    }
 
+                    @Override
+                    public void onError(IOException e) {
+                        Log.e(TAG, "http error exception = " + e.getMessage());
+                        handler.sendMessage(handler.obtainMessage(ERROR));
+                        // EventBusUtils.sendButtonTextEvent(new ButtonTextEvent(getString(R.string.done_button_text)));
+                    }
+                });
+            }else{
+                handler.sendMessage(handler.obtainMessage(SUCCESS));
+            }
+        }else{
+            Log.w(TAG, "not hasNetworkRequestSucceeded....");
+            new Thread(new Runnable() {
                 @Override
-                public void onError(IOException e) {
-                    Log.e(TAG, "http error exception = " + e.getMessage());
-                    handler.sendMessage(handler.obtainMessage(ERROR));
-                    // EventBusUtils.sendButtonTextEvent(new ButtonTextEvent(getString(R.string.done_button_text)));
+                public void run() {
+                    AppInfo appInfo = new AppInfo();
+                    appInfo.setPrimaryUrl("");
+                    appInfo.setName(getString(R.string.yyb));
+                    appInfo.setIconString(getString(R.string.yyb_icon));
+                    appInfo.setAvailable(true);
+                    appInfo.setBackupMd5Checksum("");
+                    appInfo.setBackupSize(1);
+                    appInfo.setBackupUrl("");
+                    appInfo.setPrimaryMd5Checksum("");
+                    appInfo.setPrimarySize(1);
+                    List<AppDownloadInfo> appDownloadInfoList = new ArrayList<>();
+                    appDownloadInfoList.add(new AppDownloadInfo(appInfo, IS_SELECTED, SetupWizardUtils.base64ToBitmap(appInfo.getIconString())));        
+                    singleton.setAppDownloadInfoList(appDownloadInfoList);
+                    singleton.setRequestStatus(RequestStatus.REQUEST_SUCCESS);
+                    handler.sendMessage(handler.obtainMessage(SUCCESS));
                 }
-            });
-        } else {
-            handler.sendMessage(handler.obtainMessage(SUCCESS));
+            }).start();
         }
     }
 

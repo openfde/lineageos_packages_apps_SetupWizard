@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.lineageos.setupwizard.R;
+import org.lineageos.setupwizard.util.SetupWizardUtils;
+
 
 public class AppAdapter extends RecyclerView.Adapter<AppAdapter.ApplicationHolder> {
 
@@ -38,6 +40,10 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.ApplicationHolde
         applicationHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                boolean hasYybApp = SetupWizardUtils.isAssetHasApp(context,context.getString(R.string.yyb));
+                if(hasYybApp && context.getString(R.string.yyb).equals(appDownloadInfo.getAppInfo().getName())) {
+                    return;
+                }
                 if (applicationHolder.checkedIcon.getVisibility() == View.INVISIBLE) {
                     applicationHolder.checkedIcon.setVisibility(View.VISIBLE);
                     view.setSelected(true);
