@@ -85,8 +85,8 @@ public abstract class BaseSetupWizardActivity extends AppCompatActivity implemen
     protected void requestFullScreenWindow(){
         WindowInsetsController insetsController = getWindow().getInsetsController();
         if (insetsController != null) {
-            insetsController.hide(WindowInsets.Type.statusBars());
-            insetsController.hide(WindowInsets.Type.navigationBars());
+            insetsController.privateHide(WindowInsets.Type.statusBars());
+            insetsController.privateHide(WindowInsets.Type.navigationBars());
             insetsController.setSystemBarsBehavior(WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);
         }
     }
