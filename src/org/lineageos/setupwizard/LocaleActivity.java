@@ -36,6 +36,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.ArrayList;
 
 public class LocaleActivity extends BaseSetupWizardActivity {
 
@@ -145,8 +146,24 @@ public class LocaleActivity extends BaseSetupWizardActivity {
     }
 
     private void loadLanguages() {
-        mLocaleAdapter = com.android.internal.app.LocalePicker.constructAdapter(this,
-                R.layout.locale_picker_item, R.id.locale);
+        // Load full adapter temporarily to extract desired locales
+        ArrayAdapter<com.android.internal.app.LocalePicker.LocaleInfo> fullAdapter =
+                com.android.internal.app.LocalePicker.constructAdapter(this,
+                        R.layout.locale_picker_item, R.id.locale);
+
+        // Filter to only include Simplified Chinese (zh_CN), Traditional Chinese (zh_TW), Traditional Chinese (zh_HK), and English (en_US)
+        List<com.android.internal.app.LocalePicker.LocaleInfo> selectedLocales = new ArrayList<>();
+        for (int i = 0; i < fullAdapter.getCount(); i++) {
+            com.android.internal.app.LocalePicker.LocaleInfo localeInfo = fullAdapter.getItem(i);
+            Locale locale = localeInfo.getLocale();
+            String localeStr = locale.toString();
+            if ("zh_CN".equals(localeStr) || "zh_HK".equals(localeStr) || "zh_TW".equals(localeStr) || "en_US".equals(localeStr)) {
+                selectedLocales.add(localeInfo);
+            }
+        }
+
+        // Create new adapter with only selected locales
+        mLocaleAdapter = new ArrayAdapter<>(this, R.layout.locale_picker_item, R.id.locale, selectedLocales);
         mCurrentLocale = Locale.getDefault();
         fetchAndUpdateSimLocale();
         mAdapterIndices = new int[mLocaleAdapter.getCount()];
