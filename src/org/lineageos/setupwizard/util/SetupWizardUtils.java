@@ -12,8 +12,8 @@ import static android.content.pm.PackageManager.DONT_KILL_APP;
 import static android.content.pm.PackageManager.GET_ACTIVITIES;
 import static android.telephony.TelephonyManager.PHONE_TYPE_GSM;
 
-import static com.android.internal.telephony.PhoneConstants.LTE_ON_CDMA_TRUE;
-import static com.android.internal.telephony.PhoneConstants.LTE_ON_CDMA_UNKNOWN;
+//import static com.android.internal.telephony.PhoneConstants.LTE_ON_CDMA_TRUE;
+//import static com.android.internal.telephony.PhoneConstants.LTE_ON_CDMA_UNKNOWN;
 
 import static com.google.android.setupcompat.util.ResultCodes.RESULT_SKIP;
 
@@ -69,7 +69,7 @@ import android.util.Base64;
 import java.util.List;
 import java.util.Scanner;
 
-import lineageos.providers.LineageSettings;
+//import lineageos.providers.LineageSettings;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -304,10 +304,10 @@ public class SetupWizardUtils {
         Bundle privacyData = SetupWizardApp.getSettingsBundle();
         if (privacyData != null
                 && privacyData.containsKey(KEY_SEND_METRICS)) {
-            LineageSettings.Secure.putInt(context.getContentResolver(),
+            /*LineageSettings.Secure.putInt(context.getContentResolver(),
                     LineageSettings.Secure.STATS_COLLECTION,
                     privacyData.getBoolean(KEY_SEND_METRICS)
-                    ? 1 : 0);
+                    ? 1 : 0);*/
         }
     }
 
@@ -343,14 +343,14 @@ public class SetupWizardUtils {
     }
 
     private static void writeDisableNavkeysOption(Context context, boolean enabled) {
-        final boolean virtualKeysEnabled = LineageSettings.System.getIntForUser(
+        /*final boolean virtualKeysEnabled = LineageSettings.System.getIntForUser(
                 context.getContentResolver(), LineageSettings.System.FORCE_SHOW_NAVBAR, 0,
                 UserHandle.USER_CURRENT) != 0;
         if (enabled != virtualKeysEnabled) {
             LineageSettings.System.putIntForUser(context.getContentResolver(),
                     LineageSettings.System.FORCE_SHOW_NAVBAR, enabled ? 1 : 0,
                     UserHandle.USER_CURRENT);
-        }
+        }*/
     }
 
     public static long getBuildDateTimestamp() {
@@ -387,12 +387,13 @@ public class SetupWizardUtils {
     }
 
     private static boolean isLteOnCdma(TelephonyManager subTelephonyManager, int subId) {
-        final int lteOnCdmaMode = subTelephonyManager.getLteOnCdmaMode(subId);
+        /*final int lteOnCdmaMode = subTelephonyManager.getLteOnCdmaMode(subId);
         if (lteOnCdmaMode == LTE_ON_CDMA_UNKNOWN) {
             return TelephonyProperties.lte_on_cdma_device().orElse(LTE_ON_CDMA_UNKNOWN)
                     == LTE_ON_CDMA_TRUE;
         }
-        return lteOnCdmaMode == LTE_ON_CDMA_TRUE;
+        return lteOnCdmaMode == LTE_ON_CDMA_TRUE;*/
+	return false;
     }
 
     public static void parseGpsData(Context context) {
