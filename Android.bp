@@ -25,7 +25,6 @@ android_app {
         "setupcompat",
         "setupdesign",
         "SystemUISharedLib",
-        "org.lineageos.platform.internal",
         "androidx.room_room-runtime",
         "androidx.cardview_cardview",
         "com.google.android.material_material",

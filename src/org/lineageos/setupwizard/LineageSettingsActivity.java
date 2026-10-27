@@ -18,8 +18,8 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
-import lineageos.hardware.LineageHardwareManager;
-import lineageos.providers.LineageSettings;
+//import lineageos.hardware.LineageHardwareManager;
+//import lineageos.providers.LineageSettings;
 
 public class LineageSettingsActivity extends BaseSetupWizardActivity {
 
@@ -75,8 +75,8 @@ public class LineageSettingsActivity extends BaseSetupWizardActivity {
         mNavKeys = findViewById(R.id.nav_keys_checkbox);
         mSupportsKeyDisabler = isKeyDisablerSupported(this);
         if (mSupportsKeyDisabler) {
-            mNavKeys.setChecked(LineageSettings.System.getIntForUser(getContentResolver(),
-                    LineageSettings.System.FORCE_SHOW_NAVBAR, 0, UserHandle.USER_CURRENT) != 0);
+            //mNavKeys.setChecked(LineageSettings.System.getIntForUser(getContentResolver(),
+            //        LineageSettings.System.FORCE_SHOW_NAVBAR, 0, UserHandle.USER_CURRENT) != 0);
         } else {
             navKeysRow.setVisibility(View.GONE);
         }
@@ -114,7 +114,7 @@ public class LineageSettingsActivity extends BaseSetupWizardActivity {
     }
 
     private void updateDisableNavkeysOption() {
-        if (mSupportsKeyDisabler) {
+        /*if (mSupportsKeyDisabler) {
             final Bundle myPageBundle = mSetupWizardApp.getSettingsBundle();
             boolean enabled = LineageSettings.System.getIntForUser(getContentResolver(),
                     LineageSettings.System.FORCE_SHOW_NAVBAR, 0, UserHandle.USER_CURRENT) != 0;
@@ -123,11 +123,12 @@ public class LineageSettingsActivity extends BaseSetupWizardActivity {
                     enabled;
             mNavKeys.setChecked(checked);
             myPageBundle.putBoolean(DISABLE_NAV_KEYS, checked);
-        }
+        }*/
     }
 
     private static boolean isKeyDisablerSupported(Context context) {
-        final LineageHardwareManager hardware = LineageHardwareManager.getInstance(context);
-        return hardware.isSupported(LineageHardwareManager.FEATURE_KEY_DISABLE);
+        //final LineageHardwareManager hardware = LineageHardwareManager.getInstance(context);
+        //return hardware.isSupported(LineageHardwareManager.FEATURE_KEY_DISABLE);
+	return false;
     }
 }

@@ -11,9 +11,9 @@ import static android.view.WindowManagerPolicyConstants.NAV_BAR_MODE_GESTURAL_OV
 
 import static com.android.systemui.shared.recents.utilities.Utilities.isLargeScreen;
 
-import static org.lineageos.internal.util.DeviceKeysConstants.KEY_MASK_APP_SWITCH;
-import static org.lineageos.setupwizard.SetupWizardApp.DISABLE_NAV_KEYS;
-import static org.lineageos.setupwizard.SetupWizardApp.NAVIGATION_OPTION_KEY;
+//import static org.lineageos.internal.util.DeviceKeysConstants.KEY_MASK_APP_SWITCH;
+//import static org.lineageos.setupwizard.SetupWizardApp.DISABLE_NAV_KEYS;
+//import static org.lineageos.setupwizard.SetupWizardApp.NAVIGATION_OPTION_KEY;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -26,7 +26,7 @@ import android.widget.RadioGroup;
 
 import com.airbnb.lottie.LottieAnimationView;
 
-import lineageos.providers.LineageSettings;
+//import lineageos.providers.LineageSettings;
 
 import org.lineageos.setupwizard.util.SetupWizardUtils;
 
@@ -46,15 +46,15 @@ public class NavigationSettingsActivity extends BaseSetupWizardActivity {
 
         mSetupWizardApp = (SetupWizardApp) getApplication();
         boolean navBarEnabled = false;
-        if (mSetupWizardApp.getSettingsBundle().containsKey(DISABLE_NAV_KEYS)) {
-            navBarEnabled = mSetupWizardApp.getSettingsBundle().getBoolean(DISABLE_NAV_KEYS);
-        }
-        mIsTaskbarEnabled = LineageSettings.System.getInt(getContentResolver(),
-                LineageSettings.System.ENABLE_TASKBAR, isLargeScreen(this) ? 1 : 0) == 1;
+        //if (mSetupWizardApp.getSettingsBundle().containsKey(DISABLE_NAV_KEYS)) {
+        //    navBarEnabled = mSetupWizardApp.getSettingsBundle().getBoolean(DISABLE_NAV_KEYS);
+        //}
+        mIsTaskbarEnabled = false;//LineageSettings.System.getInt(getContentResolver(),
+                //LineageSettings.System.ENABLE_TASKBAR, isLargeScreen(this) ? 1 : 0) == 1;
 
-        int deviceKeys = getResources().getInteger(
-                org.lineageos.platform.internal.R.integer.config_deviceHardwareKeys);
-        boolean hasHomeKey = (deviceKeys & KEY_MASK_APP_SWITCH) != 0;
+        int deviceKeys = 64;//getResources().getInteger(
+                //org.lineageos.platform.internal.R.integer.config_deviceHardwareKeys);
+        boolean hasHomeKey = false;//(deviceKeys & KEY_MASK_APP_SWITCH) != 0;
 
         getGlifLayout().setDescriptionText(getString(R.string.navigation_summary));
         setNextText(R.string.next);
@@ -80,8 +80,8 @@ public class NavigationSettingsActivity extends BaseSetupWizardActivity {
         // Hide this page if the device has hardware keys but didn't enable navbar
         // or if there's <= 1 available navigation modes
         if (!navBarEnabled && hasHomeKey || available <= 1) {
-            mSetupWizardApp.getSettingsBundle().putString(NAVIGATION_OPTION_KEY,
-                    NAV_BAR_MODE_3BUTTON_OVERLAY);
+            //mSetupWizardApp.getSettingsBundle().putString(NAVIGATION_OPTION_KEY,
+            //        NAV_BAR_MODE_3BUTTON_OVERLAY);
             finishAction(RESULT_OK);
         }
 
@@ -161,13 +161,13 @@ public class NavigationSettingsActivity extends BaseSetupWizardActivity {
 
     @Override
     protected void onNextPressed() {
-        mSetupWizardApp.getSettingsBundle().putString(NAVIGATION_OPTION_KEY, mSelection);
-        if (!mIsTaskbarEnabled) {
+        //mSetupWizardApp.getSettingsBundle().putString(NAVIGATION_OPTION_KEY, mSelection);
+        /*if (!mIsTaskbarEnabled) {
             boolean hideHint = mHideGesturalHint.isChecked();
             LineageSettings.System.putIntForUser(getContentResolver(),
                     LineageSettings.System.NAVIGATION_BAR_HINT, hideHint ? 0 : 1,
                     UserHandle.USER_CURRENT);
-        }
+        }*/
         super.onNextPressed();
     }
 

@@ -84,16 +84,17 @@ public abstract class BaseSetupWizardActivity extends AppCompatActivity implemen
     }
 
     protected void requestFullScreenWindow(){
-        DecorView decorView = (DecorView) getWindow().getDecorView();
-        if(decorView != null){
-            decorView.hideStatusBarNavigationBar();
+        //DecorView decorView = (DecorView) getWindow().getDecorView();
+        //if(decorView != null){
+            //decorView.hideStatusBarNavigationBar();
+        //}
+        WindowInsetsController insetsController = getWindow().getInsetsController();
+        if (insetsController != null) {
+	    Log.e("pengtg","hide statusBars navigationBars");
+            insetsController.hide(WindowInsets.Type.statusBars());
+            insetsController.hide(WindowInsets.Type.navigationBars());
+            insetsController.setSystemBarsBehavior(WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);
         }
-//        WindowInsetsController insetsController = getWindow().getInsetsController();
-//        if (insetsController != null) {
-//            insetsController.privateHide(WindowInsets.Type.statusBars());
-//            insetsController.privateHide(WindowInsets.Type.navigationBars());
-//            insetsController.setSystemBarsBehavior(WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);
-//        }
     }
 
     @Override
